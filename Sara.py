@@ -126,7 +126,7 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-        query = input('\nType Something : ').lower() #takeCommand().lower()
+        query = takeCommand().lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
