@@ -115,9 +115,9 @@ def grabPhoto():
         speak('Unable to Grab Image!')
 
 # User Details.
-name = 'Sanglap'
-emailadd = 'ahardlyunknown@gmail.com'
-pword = 'Hardly_1234'
+name = 'Your_Name'
+emailadd = 'Your_Mail_ID'
+pword = 'Your_Mail_Password'
 
 print("\n\t<!!! ONLINE !!!> \n")
 speak(random.choice(greeting_phrases))
