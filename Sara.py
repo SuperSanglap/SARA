@@ -61,8 +61,9 @@ def sendEmail(to, content):
 def playMusic():
     try:
         music_dir = 'E:\\Music\\Songs'
+        songNum = random.randint(0,159)
         songs = os.listdir(music_dir)
-        os.startfile(os.path.join(music_dir, songs[0]))
+        os.startfile(os.path.join(music_dir, songs[songNum]))
         speak('Playing Music!')
     except Exception as e:
         speak('Unable to Play Music From Your Device!')
@@ -72,7 +73,7 @@ def playMusic():
 def organiseFiles():
     try:
         speak("Enter a Valid Directory to Organise.")
-        org_dir = input(r"\tDirectory:  ")
+        org_dir = input(r"      Directory:  ")
         all_files = os.listdir(org_dir)
         all_fext = []
         for f in all_files:
@@ -87,7 +88,7 @@ def organiseFiles():
             old_path = os.path.join(org_dir, f)
             new_path = os.path.join(org_dir, ext, f)
             os.rename(old_path, new_path)
-        print(f"\n\tOrganised Files in {org_dir}")
+        print(f"\n    Organised Files in {org_dir}")
         speak(f"Organised Files in {org_dir}")
     except Exception as e:
         speak(f"Something Went Wrong! Unable to Organise Files!")
@@ -115,9 +116,9 @@ def grabPhoto():
         speak('Unable to Grab Image!')
 
 # User Details.
-name = 'Your_Name'
-emailadd = 'Your_Mail_ID'
-pword = 'Your_Mail_Password'
+name = 'Sanglap'
+emailadd = 'ahardlyunknown@gmail.com'
+pword = 'Hardly_1234'
 
 print("\n\t<!!! ONLINE !!!> \n")
 speak(random.choice(greeting_phrases))
@@ -126,7 +127,7 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-        query = takeCommand().lower()
+        query = input('\nType Something : ').lower() #takeCommand().lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -273,7 +274,7 @@ if __name__ == "__main__":
 
         # Says It's Condition.
         elif 'how are you' in query:
-            speak("I am Fine, Thanks for Asking!")
+            speak("I am Fine, Thanks for asking!")
 
         # Tells User's Identity.
         elif 'who am i' in query:
