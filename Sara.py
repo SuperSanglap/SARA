@@ -38,7 +38,7 @@ def takeCommand():
         query = r.recognize_google(audio, language='en-us')
         print(blue + f"  {name} said: {red} {query}\n" + reset)
     except:
-        return "empty_*#^-query"
+        return "empty___query"
     return query
 
 # Bades With The Time.
@@ -77,7 +77,7 @@ def playMusic():
         speak('Playing Music!')
     except Exception as e:
         speak('Unable to Play Music From Your Device!')
-        print(red + 'ERROR!' + reset)
+        print(red + 'Unable to Play Music!' + reset)
 
 # Organises Files In a Valid Directory.
 def organiseFiles():
@@ -102,8 +102,8 @@ def organiseFiles():
         print(green + f"\n\tOrganised Files in {org_dir}" + reset)
         speak(f"Organised Files in {org_dir}")
     except Exception as e:
-        speak(f"Something Went Wrong! Unable to Organise Files!")
-        print(red + '\n\tERROR!' + reset)
+        print(red + '\n\tUnable to Organise Fles!' + reset)
+        speak(f"Unable to Organise Files!")
 
 # Grabs Photo Using Webcam.
 def grabPhoto():
@@ -123,7 +123,7 @@ def grabPhoto():
         plt.show()
         cap.release()
     except Exception as e:
-        print(red + '\n\tSomething Went Wrong!' + reset)
+        print(red + '\n\tUnable to Grab Image!' + reset)
         speak('Unable to Grab Image!')
 
 # User Details.
@@ -131,6 +131,7 @@ name = 'Sanglap'
 emailadd = 'ahardlyunknown@gmail.com'
 pword = 'Hardly_1234'
 
+os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
 speak(random.choice(greeting_phrases))
 greet_user()
@@ -171,7 +172,7 @@ if __name__ == "__main__":
         # Grabs ScreenShot.
         elif 'screenshot' in query or 'screen shot' in query:
             speak("Grabbing Screenshot!")
-            print(green + '\n\tDone!' + reset)
+            print(Yellow + '\n\tDone!' + reset)
             img = ImageGrab.grab()
             speak("Done!")
             img.show()
@@ -235,7 +236,7 @@ if __name__ == "__main__":
         elif "go to" in query:
             query = query.replace("go to ", "")
             print(yellow + '\n\tOpening ' + query + reset)
-            speak(f"Opening to {query}!")
+            speak(f"Opening {query}!")
             webbrowser.open('http://'+ query)
 
         # Copies User's Command.
@@ -252,6 +253,7 @@ if __name__ == "__main__":
             speak("Ok! Fetching Results")
             query = query.replace("youtube", "")
             webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
+            print(yellow + '\n\tCheckout YouTube!' + reset)
             speak("Checkout Youtube Results!")
 
         # Launches Any app on Your PC.
@@ -260,11 +262,11 @@ if __name__ == "__main__":
             app = query.title()
             try:
                 os.startfile(app)
-                print(green + 'Launching' + app.upper() + reset)
+                print(yellow + '\n\tLaunching ' + app.title() + reset)
                 speak(f'Launching {app}!')
             except:
                 speak(f"Couldn't Launch {app}")
-                print(red + '\n\tERROR!' + reset)
+                print(red + f"\n\tCouldn't Launch {app}!" + reset)
 
         # Sends E-mail With Gmail if Username & Password is Correct and Less Secured App Access is Enabled.
         elif 'send email' in query or 'send an email' in query:
@@ -274,11 +276,11 @@ if __name__ == "__main__":
                 speak("Now Tell Me What to Say?")
                 content = takeCommand()
                 sendEmail(to, content)
-                print(green + '\n\tDone!' + reset)
+                print(yellow + '\n\tE-mail Has Been Sent!' + reset)
                 speak("Done! Email has been sent!")
             except Exception as e:
                 speak("Something Went Wrong! the Email Was Not Sent!")
-                print(red + '\n\tERROR!' + reset)
+                print(red + '\n\tThe E-mail Was Not Sent!' + reset)
 
         # Shuts Down the PC.
         elif 'shutdown' in query or 'power off' in query:
@@ -336,8 +338,8 @@ if __name__ == "__main__":
 
         # Exit or Quit.
         elif 'exit' in query or 'bye' in query:
-            print(yellow + f'\n\tBye {name} Have a Good Day!' + reset)
-            speak(f"Bye {name}! Have a Good Day!")
+            print(yellow + f'\n\tBye {name}, Have a Good Day!' + reset)
+            speak(f"Bye {name}, Have a Good Day!")
             print(red + "\n\t<!!! OFFLINE !!!>" + reset)
             exit()
 
@@ -346,7 +348,7 @@ if __name__ == "__main__":
             os.system('cls')
             speak('Current Console Cleared')
 
-        elif 'empty_*#^-query' in query:
+        elif 'empty___query' in query:
             print(red + "  Did Not Get It...\n" + reset)
             speak('Did not Get it!')
 
