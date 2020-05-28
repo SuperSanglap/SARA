@@ -3,8 +3,17 @@ import pyttsx3, speech_recognition as sr, datetime, wikipedia, webbrowser
 import subprocess, wolframalpha, cv2, smtplib, pyaudio, re, os, random
 import matplotlib.pyplot as plt
 from PIL import ImageGrab
+from colored import fg, attr
 
-greeting_phrases = ["what's up ",'hi ','hello ','hey ',"What's going on "]
+# Color Properties.
+reset = attr('reset')
+green = fg('green')
+red = fg('red')
+blue = fg('blue')
+yellow = fg('yellow')
+
+greeting_phrases = ["What's Up! ",'Hi! ','Hello! ','Hey! ']
+
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
@@ -18,35 +27,35 @@ def speak(audio):
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Listening...\n")
+        print('\n*\n' + blue + "\n  Listening...\n" + reset)
         speak('Listening')
+        r.adjust_for_ambient_noise = 0.75
         r.pause_threshold = 1
         audio = r.listen(source)
     try:
-        print("Recognizing...\n")
+        print(green + "  Recognizing...\n" + reset)
         speak('Recognizing')
         query = r.recognize_google(audio, language='en-us')
-        print(f"{name} said: {query}\n")
-    except:   
-        print("Did Not Get It...\n")
-        return "None"
+        print(blue + f"  {name} said: {red} {query}\n" + reset)
+    except:
+        return "empty_*#^-query"
     return query
 
 # Bades With The Time.
 def greet_user():
     hour = int(datetime.datetime.now().hour)
     if hour>=3 and hour<6:
+        print(yellow + f'\n\tGood Day, {name}!' + reset)
         speak(f'Good Day,{name}')
-        print(f'\n\tGood Day, {name}\n')
     elif hour>=6 and hour<12:
+        print(yellow + f'\n\tGood Morning, {name}!' + reset)
         speak(f'Good Morning,{name}')
-        print(f'\n\tGood Morning, {name}\n')
     elif hour>=12 and hour<18:
+        print(yellow + f'\n\tGood Afternoon, {name}!' + reset)
         speak(f'Good Afternoon,{name}')
-        print(f'\n\tGood Afternoon, {name}\n')
     else:
+        print(yellow + f'\n\tGood Evening, {name}!' + reset)
         speak(f'Good Evening,{name}')
-        print(f'\n\tGood Evening, {name}\n')
 
 # Function Of Sending E-mail using Gmail.
 def sendEmail(to, content):
@@ -64,16 +73,18 @@ def playMusic():
         songNum = random.randint(0,159)
         songs = os.listdir(music_dir)
         os.startfile(os.path.join(music_dir, songs[songNum]))
+        print(green + '\tPlaying Music! ' + reset)
         speak('Playing Music!')
     except Exception as e:
         speak('Unable to Play Music From Your Device!')
-        print('Error : ' + e)
+        print(red + 'ERROR!' + reset)
 
 # Organises Files In a Valid Directory.
 def organiseFiles():
     try:
         speak("Enter a Valid Directory to Organise.")
-        org_dir = input(r"      Directory:  ")
+        print('\n')
+        org_dir = input(blue + r"        Directory:  " + reset)
         all_files = os.listdir(org_dir)
         all_fext = []
         for f in all_files:
@@ -88,11 +99,11 @@ def organiseFiles():
             old_path = os.path.join(org_dir, f)
             new_path = os.path.join(org_dir, ext, f)
             os.rename(old_path, new_path)
-        print(f"\n    Organised Files in {org_dir}")
+        print(green + f"\n\tOrganised Files in {org_dir}" + reset)
         speak(f"Organised Files in {org_dir}")
     except Exception as e:
         speak(f"Something Went Wrong! Unable to Organise Files!")
-        print('Error : ' + e)
+        print(red + '\n\tERROR!' + reset)
 
 # Grabs Photo Using Webcam.
 def grabPhoto():
@@ -104,6 +115,7 @@ def grabPhoto():
             ret = False
         img1 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         speak('Image Captured!')
+        print(green + '\nDone!' + reset)
         plt.imshow(img1)
         plt.title('Image Camera-1')
         plt.xticks([])
@@ -111,8 +123,7 @@ def grabPhoto():
         plt.show()
         cap.release()
     except Exception as e:
-        print('Something Went Wrong!')
-        print('Error : ' + e)
+        print(red + '\n\tSomething Went Wrong!' + reset)
         speak('Unable to Grab Image!')
 
 # User Details.
@@ -120,14 +131,14 @@ name = 'Sanglap'
 emailadd = 'ahardlyunknown@gmail.com'
 pword = 'Hardly_1234'
 
-print("\n\t<!!! ONLINE !!!> \n")
+print(green + "\n\t<!!! ONLINE !!!>" + reset)
 speak(random.choice(greeting_phrases))
 greet_user()
 speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-        query = input('\nType Something : ').lower() #takeCommand().lower()
+        query = takeCommand().lower() #input(blue + '\nType Something : ' + reset).lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -135,23 +146,22 @@ if __name__ == "__main__":
                 speak('Searching Wikipedia')
                 query = query.replace("sara wikipedia ", "")
                 wikiResults = wikipedia.summary(query, sentences=2)
-                speak("According to Wikipedia,")
-                print(f"\n\tAccording to Wikipedia:\t {wikiResults}\n")
-                speak(wikiResults)
+                print(blue + f"\n\tAccording to Wikipedia:{yellow}\t {wikiResults}" + reset)
+                speak('According to Wikipedia: '+ wikiResults)
             except Exception as e:
-                print(e)
-                speak("Sorry! Cannot Get Results!")
+                print(red + '\n\tUnable to Get Results!' + reset)
+                speak("Sorry, Cannot Get Results!")
 
         # Tells The Time.
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M")
-            print(f"\tThe Time Is {strTime}")
+            print(yellow + f"\n\tThe Time Is {strTime}" + reset)
             speak(f"The Time Is {strTime}")
 
         # Tells The Date.
         elif 'the date' in query:
             strDate = datetime.datetime.now().strftime("%m/%d/%y")
-            print(f"\tToday's Date {strDate}")
+            print(yellow + f"\n\tToday's Date: {strDate}" + reset)
             speak(f"The Date Is {strDate}")
 
         # Greets the User.
@@ -161,8 +171,9 @@ if __name__ == "__main__":
         # Grabs ScreenShot.
         elif 'screenshot' in query or 'screen shot' in query:
             speak("Grabbing Screenshot!")
+            print(green + '\n\tDone!' + reset)
             img = ImageGrab.grab()
-            speak("Done! Showing Screenshot")
+            speak("Done!")
             img.show()
 
         # Grabs Photo Using WebCam.
@@ -181,16 +192,19 @@ if __name__ == "__main__":
                 
         # Opens Notepad.
         elif 'notepad' in query:
+            print(yellow + '\n\tOpening NOTEPAD!' + reset)
             speak('Opening Notepad')
             os.startfile('C:\\Windows\\system32\\notepad.exe')
 
         # Opens CMD.
         elif 'cmd' in query or 'command prompt' in query:
+            print(yellow + '\n\tOpening COMMAND PROMPT!' + reset)
             speak('Opening Command Promt')
             os.startfile('C:\Windows\System32\cmd.exe')
 
         # Starts Calculator.
         elif 'calculator' in query:
+            print(yellow + '\n\tOpening CALCULATOR' + reset)
             speak('Opening Calculator!')
             os.startfile('C:\Windows\System32\calc.exe')
 
@@ -198,30 +212,31 @@ if __name__ == "__main__":
         elif "wi-fi details" in query or 'wifi details' in query:
             try:
                 speak("Trying to Show Details")
-                print("\n\tTrying to Show Details...")
+                print(yellow + "\n\tTrying Show Details..." + reset)
                 subprocess.call('netsh wlan show profiles')
             except Exception as e:
-                print("\n\tUnable to Show Details!")
+                print(red + "\n\tUnable to Show Details!" + reset)
                 speak("Unable to ShoW Details! Sorry")
 
         # Shows IP Details
         elif 'ip details'in query or 'my ip' in query:
+            print(yellow + '\n\nShowing!' + reset)
             speak("Showing Ip Details")
             subprocess.call("ipconfig")
 
         # Shows System Information in CMD.
         elif 'systeminfo' in query or 'system info' in query:
             speak("Ok! Showng Your System Information. Please Wait")
-            print('\n')
+            print(yellow + '\n\tShowing System Information!' + reset)
             subprocess.call('systeminfo')
             speak('Done!')
 
         # Opens Any Website.
         elif "go to" in query:
             query = query.replace("go to ", "")
-            speak(f"Going to {query}")
+            print(yellow + '\n\tOpening ' + query + reset)
+            speak(f"Opening to {query}!")
             webbrowser.open('http://'+ query)
-            speak("Done!")
 
         # Copies User's Command.
         elif 'say' in query:
@@ -245,9 +260,11 @@ if __name__ == "__main__":
             app = query.title()
             try:
                 os.startfile(app)
+                print(green + 'Launching' + app.upper() + reset)
                 speak(f'Launching {app}!')
             except:
                 speak(f"Couldn't Launch {app}")
+                print(red + '\n\tERROR!' + reset)
 
         # Sends E-mail With Gmail if Username & Password is Correct and Less Secured App Access is Enabled.
         elif 'send email' in query or 'send an email' in query:
@@ -257,47 +274,81 @@ if __name__ == "__main__":
                 speak("Now Tell Me What to Say?")
                 content = takeCommand()
                 sendEmail(to, content)
+                print(green + '\n\tDone!' + reset)
                 speak("Done! Email has been sent!")
             except Exception as e:
                 speak("Something Went Wrong! the Email Was Not Sent!")
-                print("Error : " + e)
+                print(red + '\n\tERROR!' + reset)
 
         # Shuts Down the PC.
         elif 'shutdown' in query or 'power off' in query:
-            speak('Ok! Shutting Down.')
-            print("\n\tShutting Down")
+            speak('Ok! Shutting Down. Bye')
+            print(yellow + '\n\tShutting Down! Bye.' + reset)
             os.system('shutdown -s')
+            print(red + "\n\t<!!! OFFLINE !!!>" + reset)
+            exit()
 
         # Answers Your Hello.
-        elif 'hello' in query:
-            speak(f'HI {name}! How Can I Help You?')
+        elif 'hello' in query or 'hi' in query:
+            hello_ans = [
+                f'Hi {name}',
+                f'Hey {name}',
+                f'Hello {name}',
+                f'Hi There {name}',
+                f'Hey There {name}',
+                f'Hello There {name}'
+            ]
+            hello_ans = random.choice(hello_ans)
+            print(yellow + f'\n\t{hello_ans}! How Can I Help You?' + reset)
+            speak(f'{hello_ans}! How Can I Help You?')
+
+        # Reacts If User Says Hey.
+        elif "hey" in query:
+            hey_ans = [
+                'Ready to Help You!',
+                'How Can I Help You?',
+                'I am Here to Help You!'
+            ]
+            hey_ans = random.choice(hey_ans)
+            print(yellow + f'\n\t{hey_ans}' + reset)
+            speak(hey_ans)
 
         # Says It's Condition.
         elif 'how are you' in query:
-            speak("I am Fine, Thanks for asking!")
+            as_i_am = [
+                'I am Fine,',
+                'I am Doing Well,',
+                'I am Great,'
+            ]
+            as_i_am = random.choice(as_i_am)
+            print(yellow + f'\n\t{as_i_am} Thanks For Asking!' + reset)
+            speak(as_i_am + ' Thanks For Asking!')
 
         # Tells User's Identity.
         elif 'who am i' in query:
+            print(yellow + f'\n\tYou are {name}.' + reset)
             speak(f"You Are {name}.")
 
         # Tells It's Identity.
         elif 'who are you' in query:
-            speak("I am Sara, Your Voice Assistant.")
+            print(yellow + '\n\tI am Sara Your Virtual Assistant!' + reset)
+            speak("I am Sara, Your Virtual Assistant.")
 
         # Exit or Quit.
         elif 'exit' in query or 'bye' in query:
+            print(yellow + f'\n\tBye {name} Have a Good Day!' + reset)
             speak(f"Bye {name}! Have a Good Day!")
-            print("\n\t<!!! OFFLINE !!!>")
+            print(red + "\n\t<!!! OFFLINE !!!>" + reset)
             exit()
-
-        # Reacts If User Says Hey.
-        elif "hey" in query:
-            speak("Ready To Help You")
 
         # Clears the Console.
         elif 'clear console' in query or 'clear terminal' in query:
-            os.system('clear')
+            os.system('cls')
             speak('Current Console Cleared')
+
+        elif 'empty_*#^-query' in query:
+            print(red + "  Did Not Get It...\n" + reset)
+            speak('Did not Get it!')
 
         # If "Query Is None Of The Above"
         else:
@@ -306,12 +357,13 @@ if __name__ == "__main__":
                     client  = wolframalpha.Client('9LXRT5-WHYX7PK8HX')
                     res = client.query(query)
                     output = next(res.results).text 
-                    print(f'\n\tAnswer: {output}\n')
+                    print(blue + f'\n\tAnswer: {yellow} {output}' + reset)
                     speak(output)
                 except:
                     results = wikipedia.summary(query, sentences=2)
-                    print(f'\n\tWikipedia Says: {results}')
+                    print(blue + f'\n\tWikipedia Says: {yellow} {results}' + reset)
                     speak(f"Wikipedia Says {results}")
             except:
+                print(red + '\n\tCheckout Google!' + reset)
                 google_url = 'https://www.google.com/search?q='
                 webbrowser.open(google_url + query)
