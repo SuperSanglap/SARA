@@ -139,6 +139,7 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
+
         query = takeCommand().lower() #input(blue + '\nType Something : ' + reset).lower()
 
         # Searches Wikipedia.
