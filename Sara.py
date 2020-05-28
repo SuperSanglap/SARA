@@ -84,7 +84,7 @@ def organiseFiles():
     try:
         speak("Enter a Valid Directory to Organise.")
         print('\n')
-        org_dir = input(blue + r"        Directory:  " + reset)
+        org_dir = input(green + r"        Directory:  " + reset)
         all_files = os.listdir(org_dir)
         all_fext = []
         for f in all_files:
@@ -140,7 +140,7 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        query = takeCommand().lower() #input(blue + '\nType Something : ' + reset).lower()
+        query = input(blue + '\n  Type Something : ' + reset).lower() #takeCommand().lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -148,7 +148,7 @@ if __name__ == "__main__":
                 speak('Searching Wikipedia')
                 query = query.replace("sara wikipedia ", "")
                 wikiResults = wikipedia.summary(query, sentences=2)
-                print(blue + f"\n\tAccording to Wikipedia:{yellow}\t {wikiResults}" + reset)
+                print(green + f"\n\tAccording to Wikipedia:{yellow}\t {wikiResults}" + reset)
                 speak('According to Wikipedia: '+ wikiResults)
             except Exception as e:
                 print(red + '\n\tUnable to Get Results!' + reset)
@@ -273,7 +273,7 @@ if __name__ == "__main__":
         elif 'send email' in query or 'send an email' in query:
             try:
                 speak("Ok! Whom to Send? Enter the Eamil-ID")
-                to = input("Email To:- ")
+                to = input(green + "\n\tEmail To:- " + reset)
                 speak("Now Tell Me What to Say?")
                 content = takeCommand()
                 sendEmail(to, content)
@@ -360,11 +360,11 @@ if __name__ == "__main__":
                     client  = wolframalpha.Client('9LXRT5-WHYX7PK8HX')
                     res = client.query(query)
                     output = next(res.results).text 
-                    print(blue + f'\n\tAnswer: {yellow} {output}' + reset)
+                    print(green + f'\n\tAnswer: {yellow} {output}' + reset)
                     speak(output)
                 except:
                     results = wikipedia.summary(query, sentences=2)
-                    print(blue + f'\n\tWikipedia Says: {yellow} {results}' + reset)
+                    print(green + f'\n\tWikipedia Says: {yellow} {results}' + reset)
                     speak(f"Wikipedia Says {results}")
             except:
                 print(red + '\n\tCheckout Google!' + reset)
