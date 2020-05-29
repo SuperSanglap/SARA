@@ -24,7 +24,7 @@ def speak(audio):
     engine.runAndWait()
 
 # Hears to the User.
-def takeCommand():
+def command():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print('\n*\n' + blue + "\n  Listening...\n" + reset)
@@ -73,11 +73,11 @@ def playMusic():
         songNum = random.randint(0,159)
         songs = os.listdir(music_dir)
         os.startfile(os.path.join(music_dir, songs[songNum]))
-        print(green + '\tPlaying Music! ' + reset)
+        print(green + '\n\tPlaying Music! ' + reset)
         speak('Playing Music!')
     except Exception as e:
         speak('Unable to Play Music From Your Device!')
-        print(red + 'Unable to Play Music!' + reset)
+        print(red + '\n\tUnable to Play Music!' + reset)
 
 # Organises Files In a Valid Directory.
 def organiseFiles():
@@ -100,7 +100,7 @@ def organiseFiles():
             new_path = os.path.join(org_dir, ext, f)
             os.rename(old_path, new_path)
         print(green + f"\n\tOrganised Files in {org_dir}" + reset)
-        speak(f"Organised Files in {org_dir}")
+        speak(f"Organised Files!")
     except Exception as e:
         print(red + '\n\tUnable to Organise Fles!' + reset)
         speak(f"Unable to Organise Files!")
@@ -115,7 +115,7 @@ def grabPhoto():
             ret = False
         img1 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         speak('Image Captured!')
-        print(green + '\nDone!' + reset)
+        print(green + '\n\tDone!' + reset)
         plt.imshow(img1)
         plt.title('Image Camera-1')
         plt.xticks([])
@@ -127,9 +127,10 @@ def grabPhoto():
         speak('Unable to Grab Image!')
 
 # User Details.
-name = 'Your Name'
-emailadd = 'your Email'
-pword = 'Your Password'
+name = 'Sanglap'
+bot = 'sara'
+emailadd = 'ahardlyunknown@gmail.com'
+pword = 'Hardly_1234'
 
 os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
@@ -140,7 +141,8 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        query = takeCommand().lower()
+        #query = input(blue + '\n  Type Something : ' + green).lower()
+        query = command().lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -167,48 +169,88 @@ if __name__ == "__main__":
             speak(f"The Date Is {strDate}")
 
         # Greets the User.
-        elif 'greet' in query or 'wish me' in query:
+        elif 'greet me' in query or 'wish me' in query:
             greet_user()
-
-        # Grabs ScreenShot.
-        elif 'screenshot' in query or 'screen shot' in query:
-            speak("Grabbing Screenshot!")
-            print(Yellow + '\n\tDone!' + reset)
-            img = ImageGrab.grab()
-            speak("Done!")
-            img.show()
 
         # Grabs Photo Using WebCam.
         elif 'grab image' in query or ' grab photo' in query:
             grabPhoto()
-                
+        
+        # Plays Music.
+        elif 'play music' in query or 'play song' in query:
+            playMusic()
+
+        # Grabs ScreenShot.
+        elif 'screenshot' in query or 'screen shot' in query:
+            speak("Grabbing Screenshot!")
+            print(yellow + '\n\tDone!' + reset)
+            img = ImageGrab.grab()
+            speak("Done!")
+            img.show()
+
+        # Sends E-mail With G-Mail.
+        elif 'send email' in query or 'an email' in query:
+            try:
+                speak("Ok! Whom to Send? Enter the E-mail ID")
+                to = input(green + "\n\tEmail To : " + reset)
+                speak("Now Tell Me What to Say?")
+                content = command().title() #input(green + '\n\tContent: ' + reset)
+                sendEmail(to, content)
+                print(green + '\n\tE-mail Has Been Sent!' + reset)
+                speak("Done! Email has been sent!")
+            except Exception as e:
+                print(red + '\n\tThe E-mail Was Not Sent!' + reset)
+                speak("Something Went Wrong! the Email Was Not Sent!")
+
         # Searches With Google.
-        elif "search for" in query:
-            query = query.replace("search for ", "")
+        elif "search" in query or 'google' in query:
+            query = query.replace("search", "")
+            query = query.replace('google', '')
             webbrowser.open(f'https://www.google.com/search?q={query}')
+            print(yellow + f'\n\tSearching for, {query}' + reset)
             speak("Checkout Search Results!")
+
+        # Fetches Youtube Results.
+        elif "youtube" in query:
+            speak("Ok! Fetching Results")
+            query = query.replace("youtube", "")
+            webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
+            print(yellow + '\n\tCheckout YouTube Results!' + reset)
+            speak("Checkout Youtube Results!")
 
         # Organises Files in a Specific Directory.
         elif "organise file" in query or  "manage file" in query:
             organiseFiles()
                 
         # Opens Notepad.
-        elif 'notepad' in query:
+        elif 'open notepad' in query:
             print(yellow + '\n\tOpening NOTEPAD!' + reset)
             speak('Opening Notepad')
             os.startfile('C:\\Windows\\system32\\notepad.exe')
 
         # Opens CMD.
-        elif 'cmd' in query or 'command prompt' in query:
+        elif 'open cmd' in query or 'command prompt' in query:
             print(yellow + '\n\tOpening COMMAND PROMPT!' + reset)
             speak('Opening Command Promt')
             os.startfile('C:\Windows\System32\cmd.exe')
 
         # Starts Calculator.
-        elif 'calculator' in query:
+        elif 'open calculator' in query:
             print(yellow + '\n\tOpening CALCULATOR' + reset)
             speak('Opening Calculator!')
             os.startfile('C:\Windows\System32\calc.exe')
+
+        # Launches Any app on Your PC.
+        elif 'launch' in query:
+            query = query.replace('launch ', "")
+            app = query.title()
+            try:
+                os.startfile(app)
+                print(green + '\n\tLaunching ' + app.title() + reset)
+                speak(f'Launching {app}!')
+            except:
+                speak(f"Couldn't Launch {app}")
+                print(red + f"\n\tCouldn't Launch {app}!" + reset)
 
         # Shows Connected Wifi Details.
         elif "wi-fi details" in query or 'wifi details' in query:
@@ -233,55 +275,17 @@ if __name__ == "__main__":
             subprocess.call('systeminfo')
             speak('Done!')
 
+        # Clears the Console.
+        elif 'clear console' in query or 'clear terminal' in query:
+            os.system('cls')
+            speak('Current Console Cleared')
+
         # Opens Any Website.
         elif "go to" in query:
             query = query.replace("go to ", "")
-            print(yellow + '\n\tOpening ' + query + reset)
+            print(green + '\n\tOpening ' + query + reset)
             speak(f"Opening {query}!")
             webbrowser.open('http://'+ query)
-
-        # Copies User's Command.
-        elif 'say' in query:
-            copy = query.replace("say", "")
-            speak(copy)
-
-        # Plays Music.
-        elif 'music' in query or 'song' in query:
-            playMusic()
-
-        # Fetches Youtube Results.
-        elif "youtube" in query:
-            speak("Ok! Fetching Results")
-            query = query.replace("youtube", "")
-            webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
-            print(yellow + '\n\tCheckout YouTube!' + reset)
-            speak("Checkout Youtube Results!")
-
-        # Launches Any app on Your PC.
-        elif 'launch' in query:
-            query = query.replace('launch ', "")
-            app = query.title()
-            try:
-                os.startfile(app)
-                print(yellow + '\n\tLaunching ' + app.title() + reset)
-                speak(f'Launching {app}!')
-            except:
-                speak(f"Couldn't Launch {app}")
-                print(red + f"\n\tCouldn't Launch {app}!" + reset)
-
-        # Sends E-mail With Gmail if Username & Password is Correct and Less Secured App Access is Enabled.
-        elif 'send email' in query or 'send an email' in query:
-            try:
-                speak("Ok! Whom to Send? Enter the Eamil-ID")
-                to = input(green + "\n\tEmail To:- " + reset)
-                speak("Now Tell Me What to Say?")
-                content = takeCommand()
-                sendEmail(to, content)
-                print(yellow + '\n\tE-mail Has Been Sent!' + reset)
-                speak("Done! Email has been sent!")
-            except Exception as e:
-                speak("Something Went Wrong! the Email Was Not Sent!")
-                print(red + '\n\tThe E-mail Was Not Sent!' + reset)
 
         # Shuts Down the PC.
         elif 'shutdown' in query or 'power off' in query:
@@ -292,7 +296,7 @@ if __name__ == "__main__":
             exit()
 
         # Answers Your Hello.
-        elif 'hello' in query or 'hi' in query:
+        elif f'hello' in query or f'hi {bot}' in query:
             hello_ans = [
                 f'Hi {name}',
                 f'Hey {name}',
@@ -306,7 +310,7 @@ if __name__ == "__main__":
             speak(f'{hello_ans}! How Can I Help You?')
 
         # Reacts If User Says Hey.
-        elif "hey" in query:
+        elif f"hey {bot}" in query:
             hey_ans = [
                 'Ready to Help You!',
                 'How Can I Help You?',
@@ -332,23 +336,29 @@ if __name__ == "__main__":
             print(yellow + f'\n\tYou are {name}.' + reset)
             speak(f"You Are {name}.")
 
+        # Tells Her Name
+        elif 'what is your name' in query:
+            print(yellow + f'\n\t My Name is {bot.title()}.' + reset)
+            speak(f'I am {bot}')
+
         # Tells It's Identity.
         elif 'who are you' in query:
-            print(yellow + '\n\tI am Sara Your Virtual Assistant!' + reset)
-            speak("I am Sara, Your Virtual Assistant.")
+            print(yellow + f'\n\tI am {bot.title()}, Your Virtual Assistant!' + reset)
+            speak(f"I am {bot}, Your Virtual Assistant.")
+
+        # Copies User's Command.
+        elif 'say' in query:
+            copy = query.replace("say", "")
+            speak(copy)
 
         # Exit or Quit.
-        elif 'exit' in query or 'bye' in query:
+        elif 'exit' in query or f'bye' in query:
             print(yellow + f'\n\tBye {name}, Have a Good Day!' + reset)
             speak(f"Bye {name}, Have a Good Day!")
             print(red + "\n\t<!!! OFFLINE !!!>" + reset)
             exit()
 
-        # Clears the Console.
-        elif 'clear console' in query or 'clear terminal' in query:
-            os.system('cls')
-            speak('Current Console Cleared')
-
+        # Invaild Query.
         elif 'empty___query' in query:
             print(red + "  Did Not Get It...\n" + reset)
             speak('Did not Get it!')
@@ -367,6 +377,5 @@ if __name__ == "__main__":
                     print(green + f'\n\tWikipedia Says: {yellow} {results}' + reset)
                     speak(f"Wikipedia Says {results}")
             except:
-                print(red + '\n\tCheckout Google!' + reset)
-                google_url = 'https://www.google.com/search?q='
-                webbrowser.open(google_url + query)
+                print(red + "\n\tI Don't Know, How to Reply This!" + reset)
+                speak("I Don't Know, How to Reply This!")
