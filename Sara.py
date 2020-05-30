@@ -129,8 +129,8 @@ def grabPhoto():
 # User Details.
 name = 'Sanglap'
 bot = 'sara'
-emailadd = 'ahardlyunknown@gmail.com'
-pword = 'Hardly_1234'
+emailadd = 'Your Mail ID'
+pword = 'Your Password'
 
 os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
