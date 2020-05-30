@@ -36,7 +36,7 @@ def command():
         print(green + "  Recognizing...\n" + reset)
         speak('Recognizing')
         query = r.recognize_google(audio, language='en-us')
-        print(blue + f"  {name} said: {red} {query}\n" + reset)
+        print(f"  {name} Said : {red} {query}\n" + reset)
     except:
         return "empty___query"
     return query
@@ -141,7 +141,7 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        #query = input(blue + '\n  Type Something : ' + green).lower()
+        #query = input(blue + '\n  Type Something : ' + reset).lower()
         query = command().lower()
 
         # Searches Wikipedia.
@@ -194,7 +194,8 @@ if __name__ == "__main__":
                 speak("Ok! Whom to Send? Enter the E-mail ID")
                 to = input(green + "\n\tEmail To : " + reset)
                 speak("Now Tell Me What to Say?")
-                content = command().title() #input(green + '\n\tContent: ' + reset)
+                content = command().title()
+                #content = input(green + '\n\tContent: ' + reset)
                 sendEmail(to, content)
                 print(green + '\n\tE-mail Has Been Sent!' + reset)
                 speak("Done! Email has been sent!")
@@ -353,8 +354,13 @@ if __name__ == "__main__":
 
         # Exit or Quit.
         elif 'exit' in query or f'bye' in query:
-            print(yellow + f'\n\tBye {name}, Have a Good Day!' + reset)
-            speak(f"Bye {name}, Have a Good Day!")
+            hour = int(datetime.datetime.now().hour)
+            if hour>=3 and hour<18:
+                print(yellow + f'\n\tBye {name}, Have a Good Day!' + reset)
+                speak(f'Bye {name}, Have a Good Day!')
+            else:
+                print(yellow + f'\n\tBye {name}, Have a Good Night!' + reset)
+                speak(f'Bye {name}, Have a Good Night!')
             print(red + "\n\t<!!! OFFLINE !!!>" + reset)
             exit()
 
@@ -377,5 +383,5 @@ if __name__ == "__main__":
                     print(green + f'\n\tWikipedia Says: {yellow} {results}' + reset)
                     speak(f"Wikipedia Says {results}")
             except:
-                print(red + "\n\tI Don't Know, How to Reply This!" + reset)
+                print(red + "\n\tI Don't Know How to Reply This!" + reset)
                 speak("I Don't Know, How to Reply This!")
