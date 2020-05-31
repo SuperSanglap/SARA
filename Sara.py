@@ -29,7 +29,7 @@ def command():
     with sr.Microphone() as source:
         print('\n*\n' + blue + "\n  Listening...\n" + reset)
         speak('Listening')
-        r.adjust_for_ambient_noise = 0.75
+        r.adjust_for_ambient_noise = 1.25
         r.pause_threshold = 1
         audio = r.listen(source)
     try:
@@ -141,8 +141,8 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        #query = input(blue + '\n  Type Something : ' + reset).lower()
-        query = command().lower()
+        query = input(blue + '\n  Type Something : ' + reset).lower()
+        #query = command().lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -155,6 +155,31 @@ if __name__ == "__main__":
             except Exception as e:
                 print(red + '\n\tUnable to Get Results!' + reset)
                 speak("Sorry, Cannot Get Results!")
+
+        # Opens Any Website.
+        elif '.com' in query or '.org' in query or '.net' in query or '.io' in query:
+            query = query.replace('open ', '')
+            query = query.replace('start ', '')
+            query = query.replace('launch ', '')
+            print(green + '\n\tOpening ' + query + reset)
+            speak(f"Opening {query}!")
+            webbrowser.open('http://'+ query)
+
+        # Searches With Google.
+        elif "search" in query or 'google' in query:
+            query = query.replace("search for ", "")
+            query = query.replace('google ', '')
+            webbrowser.open(f'https://www.google.com/search?q={query}')
+            print(yellow + f'\n\tSearching For {query.title()}' + reset)
+            speak(f"Searching for {query}")
+
+        # Fetches Youtube Results.
+        elif "youtube" in query:
+            speak("Ok! Fetching Results")
+            query = query.replace("youtube", "")
+            webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
+            print(yellow + '\n\tCheckout YouTube Results!' + reset)
+            speak("Checkout Youtube Results!")
 
         # Tells The Time.
         elif 'the time' in query:
@@ -177,7 +202,7 @@ if __name__ == "__main__":
             grabPhoto()
         
         # Plays Music.
-        elif 'play music' in query or 'play song' in query:
+        elif 'music' in query or 'song' in query:
             playMusic()
 
         # Grabs ScreenShot.
@@ -195,7 +220,6 @@ if __name__ == "__main__":
                 to = input(green + "\n\tEmail To : " + reset)
                 speak("Now Tell Me What to Say?")
                 content = command().title()
-                #content = input(green + '\n\tContent: ' + reset)
                 sendEmail(to, content)
                 print(green + '\n\tE-mail Has Been Sent!' + reset)
                 speak("Done! Email has been sent!")
@@ -203,30 +227,17 @@ if __name__ == "__main__":
                 print(red + '\n\tThe E-mail Was Not Sent!' + reset)
                 speak("Something Went Wrong! the Email Was Not Sent!")
 
-        # Opens Any Website.
-        elif '.com' in query or '.org' in query or '.net' in query or '.io' in query:
-            query = query.replace('open ', '')
-            query = query.replace('start ', '')
-            query = query.replace('launch ', '')
-            print(green + '\n\tOpening ' + query + reset)
-            speak(f"Opening {query}!")
-            webbrowser.open('http://'+ query)
-
-        # Searches With Google.
-        elif "search" in query or 'google' in query:
-            query = query.replace("search", "")
-            query = query.replace('google', '')
-            webbrowser.open(f'https://www.google.com/search?q={query}')
-            print(yellow + f'\n\tSearching for, {query}' + reset)
-            speak("Checkout Search Results!")
-
-        # Fetches Youtube Results.
-        elif "youtube" in query:
-            speak("Ok! Fetching Results")
-            query = query.replace("youtube", "")
-            webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
-            print(yellow + '\n\tCheckout YouTube Results!' + reset)
-            speak("Checkout Youtube Results!")
+        # Launches Any app on Your PC.
+        elif 'launch' in query:
+            query = query.replace('launch ', "")
+            app = query.title()
+            try:
+                os.startfile(app)
+                print(green + '\n\tLaunching ' + app.upper() + reset)
+                speak(f'Launching {app}!')
+            except:
+                speak(f"Couldn't Launch {app}")
+                print(red + f"\n\tCouldn't Launch {app}!" + reset)
 
         # Organises Files in a Specific Directory.
         elif "organise file" in query or  "manage file" in query:
@@ -249,18 +260,6 @@ if __name__ == "__main__":
             print(yellow + '\n\tOpening CALCULATOR' + reset)
             speak('Opening Calculator!')
             os.startfile('C:\Windows\System32\calc.exe')
-
-        # Launches Any app on Your PC.
-        elif 'launch' in query:
-            query = query.replace('launch ', "")
-            app = query.title()
-            try:
-                os.startfile(app)
-                print(green + '\n\tLaunching ' + app.upper() + reset)
-                speak(f'Launching {app}!')
-            except:
-                speak(f"Couldn't Launch {app}")
-                print(red + f"\n\tCouldn't Launch {app}!" + reset)
 
         # Shows Connected Wifi Details.
         elif "wi-fi details" in query or 'wifi details' in query:
