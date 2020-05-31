@@ -129,8 +129,8 @@ def grabPhoto():
 # User Details.
 name = 'Sanglap'
 bot = 'sara'
-emailadd = 'Your Mail ID'
-pword = 'Your Password'
+emailadd = 'ahardlyunknown@gmail.com'
+pword = 'Hardly_1234'
 
 os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
@@ -203,6 +203,15 @@ if __name__ == "__main__":
                 print(red + '\n\tThe E-mail Was Not Sent!' + reset)
                 speak("Something Went Wrong! the Email Was Not Sent!")
 
+        # Opens Any Website.
+        elif '.com' in query or '.org' in query or '.net' in query or '.io' in query:
+            query = query.replace('open ', '')
+            query = query.replace('start ', '')
+            query = query.replace('launch ', '')
+            print(green + '\n\tOpening ' + query + reset)
+            speak(f"Opening {query}!")
+            webbrowser.open('http://'+ query)
+
         # Searches With Google.
         elif "search" in query or 'google' in query:
             query = query.replace("search", "")
@@ -247,7 +256,7 @@ if __name__ == "__main__":
             app = query.title()
             try:
                 os.startfile(app)
-                print(green + '\n\tLaunching ' + app.title() + reset)
+                print(green + '\n\tLaunching ' + app.upper() + reset)
                 speak(f'Launching {app}!')
             except:
                 speak(f"Couldn't Launch {app}")
@@ -280,13 +289,6 @@ if __name__ == "__main__":
         elif 'clear console' in query or 'clear terminal' in query:
             os.system('cls')
             speak('Current Console Cleared')
-
-        # Opens Any Website.
-        elif "go to" in query:
-            query = query.replace("go to ", "")
-            print(green + '\n\tOpening ' + query + reset)
-            speak(f"Opening {query}!")
-            webbrowser.open('http://'+ query)
 
         # Shuts Down the PC.
         elif 'shutdown' in query or 'power off' in query:
