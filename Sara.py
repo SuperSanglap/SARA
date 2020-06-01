@@ -127,10 +127,10 @@ def grabPhoto():
         speak('Unable to Grab Image!')
 
 # User Details.
-name = 'Sanglap'
-bot = 'sara'
-emailadd = '******************'
-pword = '**********************'
+name = 'Sanglap' # Enter Your Name
+bot = 'sara' # Voice Assistant Name
+emailadd = 'User_Mail ID' # E-Mail ID
+pword = 'User_Mail Password' # E-mail Password
 
 os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
@@ -141,8 +141,8 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        query = input(blue + '\n  Type Something : ' + reset).lower()
         #query = command().lower()
+        query = input(blue + '\n  Type Something : ' + reset).lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -265,7 +265,7 @@ if __name__ == "__main__":
         elif "wi-fi details" in query or 'wifi details' in query:
             try:
                 speak("Trying to Show Details")
-                print(yellow + "\n\tTrying Show Details..." + reset)
+                print(green + "\n\tTrying Show Details..." + yellow)
                 subprocess.call('netsh wlan show profiles')
             except Exception as e:
                 print(red + "\n\tUnable to Show Details!" + reset)
@@ -273,14 +273,14 @@ if __name__ == "__main__":
 
         # Shows IP Details
         elif 'ip details'in query or 'my ip' in query:
-            print(yellow + '\n\nShowing!' + reset)
+            print(green + '\n\tShowing!' + yellow)
             speak("Showing Ip Details")
             subprocess.call("ipconfig")
 
         # Shows System Information in CMD.
         elif 'systeminfo' in query or 'system info' in query:
             speak("Ok! Showng Your System Information. Please Wait")
-            print(yellow + '\n\tShowing System Information!' + reset)
+            print(green + '\n\tShowing System Information!\n' + yellow)
             subprocess.call('systeminfo')
             speak('Done!')
 
@@ -312,7 +312,7 @@ if __name__ == "__main__":
             speak(f'{hello_ans}! How Can I Help You?')
 
         # Reacts If User Says Hey.
-        elif f"hey {bot}" in query:
+        elif f"hey" in query:
             hey_ans = [
                 'Ready to Help You!',
                 'How Can I Help You?',
