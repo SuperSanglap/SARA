@@ -1,9 +1,11 @@
+# Reommended Python Version 3.6.0
 # Importing Needed Modules.
 import pyttsx3, speech_recognition as sr, datetime, wikipedia, webbrowser
 import subprocess, wolframalpha, cv2, smtplib, pyaudio, re, os, random
 import matplotlib.pyplot as plt
 from PIL import ImageGrab
 from colored import fg, attr
+from googletrans import Translator
 
 # Color Properties.
 reset = attr('reset')
@@ -44,10 +46,10 @@ def command():
 # Bades With The Time.
 def greet_user():
     hour = int(datetime.datetime.now().hour)
-    if hour>=3 and hour<6:
-        print(yellow + f'\n\tGood Day, {name}!' + reset)
-        speak(f'Good Day,{name}')
-    elif hour>=6 and hour<12:
+    if hour>=22 and hour<5:
+        print(yellow + f'\n\tGood Night, {name}!' + reset)
+        speak(f'Good Night,{name}')
+    elif hour>=5 and hour<12:
         print(yellow + f'\n\tGood Morning, {name}!' + reset)
         speak(f'Good Morning,{name}')
     elif hour>=12 and hour<18:
@@ -141,7 +143,8 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        query = command().lower()
+        #query = command().lower()
+        query = input(blue + '\n  Type Something : ' + reset).lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -167,9 +170,10 @@ if __name__ == "__main__":
         # Searches With Google.
         elif "search" in query or 'google' in query:
             query = query.replace("search for ", "")
+            query = query.replace(' google', '')
             query = query.replace('google ', '')
             webbrowser.open(f'https://www.google.com/search?q={query}')
-            print(yellow + f'\n\tSearching For {query.title()}' + reset)
+            print(yellow + f'\n\tSearching For "{query.title()}"' + reset)
             speak(f"Searching for {query}")
 
         # Fetches Youtube Results.
@@ -182,7 +186,7 @@ if __name__ == "__main__":
 
         # Tells The Time.
         elif 'the time' in query:
-            strTime = datetime.datetime.now().strftime("%H:%M")
+            strTime = datetime.datetime.now().strftime("%I:%M %p")
             print(yellow + f"\n\tThe Time Is {strTime}" + reset)
             speak(f"The Time Is {strTime}")
 
@@ -196,6 +200,10 @@ if __name__ == "__main__":
         elif 'greet me' in query or 'wish me' in query:
             greet_user()
 
+        # Greets User When User Greets.
+        elif 'good morning'in query or 'good afternoon' in query or'good evening'in query:
+            greet_user()
+
         # Grabs Photo Using WebCam.
         elif 'grab image' in query or ' grab photo' in query:
             grabPhoto()
@@ -203,6 +211,27 @@ if __name__ == "__main__":
         # Plays Music.
         elif 'music' in query or 'song' in query:
             playMusic()
+
+        # Translates English to Any Language.
+        elif 'translate' in query:
+            query = query.replace(' translate ', '')
+            try:
+                sentence = query.title()
+                destL = input(green + '\n\tDestination: ' + reset) #command.lower()
+                destL = destL.lower()
+                destL = destL.replace('translate ', '')
+                destL = destL.replace('to ', '')
+                destL = destL.replace('language ', '')
+                translated_sent = Translator().translate(sentence, src = 'en' , dest = destL)
+                translated = translated_sent.text
+                try:
+                    speak(f'\n\t{sentence}, in {destL}. {translated}')
+                    print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
+                except Exception:
+                    print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
+            except:
+                print(red + '\n\tUnable to Translate!' + reset)
+                speak("Translation Failed!")
 
         # Grabs ScreenShot.
         elif 'screenshot' in query or 'screen shot' in query:
@@ -248,6 +277,12 @@ if __name__ == "__main__":
             speak('Opening Notepad')
             os.startfile('C:\\Windows\\system32\\notepad.exe')
 
+        # Opens Task Manager.
+        elif 'task manager' in query or 'task-manager' in query:
+            print(yellow + '\n\tOpening Task Manager!' + reset)
+            speak('Opening Task Manager')
+            os.startfile('C:\\Windows\\system32\\Taskmgr.exe')
+
         # Opens CMD.
         elif 'open cmd' in query or 'command prompt' in query:
             print(yellow + '\n\tOpening COMMAND PROMPT!' + reset)
@@ -282,6 +317,12 @@ if __name__ == "__main__":
             print(green + '\n\tShowing System Information!\n' + yellow)
             subprocess.call('systeminfo')
             speak('Done!')
+
+        # Shows All Running Tasks.
+        elif 'task list' in query or 'tasklist' in query:
+            print(green + '\n\tShowing Running Tasks!' + yellow)
+            speak('Showing Running Tasks!')
+            subprocess.call('tasklist')
 
         # Clears the Console.
         elif 'clear console' in query or 'clear terminal' in query:
