@@ -130,7 +130,7 @@ def grabPhoto():
 
 # User Details.
 name = 'Sanglap' # Enter Your Name
-bot = 'sara' # Voice Assistant Name
+bot = 'Sara'.lower() # Voice Assistant Name
 emailadd = 'User_Mail ID' # E-Mail ID
 pword = 'User_Mail Password' # E-mail Password
 
@@ -156,14 +156,15 @@ if __name__ == "__main__":
                 speak('According to Wikipedia: '+ wikiResults)
             except Exception as e:
                 print(red + '\n\tUnable to Get Results!' + reset)
-                speak("Sorry, Cannot Get Results!")
+                speak("Couldn't Get Results!")
 
         # Opens Any Website.
         elif '.com' in query or '.org' in query or '.net' in query or '.io' in query:
             query = query.replace('open ', '')
             query = query.replace('start ', '')
             query = query.replace('launch ', '')
-            print(green + '\n\tOpening ' + query + reset)
+            query = query.replace('search for ', '')
+            print(yellow + '\n\tOpening ' + query + reset)
             speak(f"Opening {query}!")
             webbrowser.open('http://'+ query)
 
@@ -184,17 +185,23 @@ if __name__ == "__main__":
             print(yellow + '\n\tCheckout YouTube Results!' + reset)
             speak("Checkout Youtube Results!")
 
+        # Copies User's Command.
+        elif 'say ' in query or 'speak' in query:
+            copy = query.replace("say ", "")
+            print(yellow + f'\n\t{copy.title()}' + reset)
+            speak(copy)
+
         # Tells The Time.
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%I:%M %p")
-            print(yellow + f"\n\tThe Time Is {strTime}" + reset)
-            speak(f"The Time Is {strTime}")
+            print(yellow + f"\n\tIt is {strTime}" + reset)
+            speak(f"It's {strTime}")
 
         # Tells The Date.
-        elif 'the date' in query:
+        elif 'the date' in query or "today's date" in query:
             strDate = datetime.datetime.now().strftime("%m/%d/%y")
-            print(yellow + f"\n\tToday's Date: {strDate}" + reset)
-            speak(f"The Date Is {strDate}")
+            print(yellow + f"\n\tToday is {strDate}" + reset)
+            speak(f"Today is, {strDate}")
 
         # Greets the User.
         elif 'greet me' in query or 'wish me' in query:
@@ -214,10 +221,11 @@ if __name__ == "__main__":
 
         # Translates English to Any Language.
         elif 'translate' in query:
-            query = query.replace(' translate ', '')
+            query = query.replace('translate ', '')
             try:
                 sentence = query.title()
-                destL = input(green + '\n\tDestination: ' + reset) #command.lower()
+                speak('In Which Language Should I Translate It?')
+                destL = input(green + '\n\tTranslate To : ' + reset) #command.lower()
                 destL = destL.lower()
                 destL = destL.replace('translate ', '')
                 destL = destL.replace('to ', '')
@@ -225,12 +233,12 @@ if __name__ == "__main__":
                 translated_sent = Translator().translate(sentence, src = 'en' , dest = destL)
                 translated = translated_sent.text
                 try:
-                    speak(f'\n\t{sentence}, in {destL}. {translated}')
                     print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
+                    speak(f'\n\t{sentence}, in {destL}. {translated}')
                 except Exception:
                     print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
             except:
-                print(red + '\n\tUnable to Translate!' + reset)
+                print(red + '\n\tTranslation Failed!' + reset)
                 speak("Translation Failed!")
 
         # Grabs ScreenShot.
@@ -261,11 +269,11 @@ if __name__ == "__main__":
             app = query.title()
             try:
                 os.startfile(app)
-                print(green + '\n\tLaunching ' + app.upper() + reset)
+                print(green + '\n\tLaunching ' + app.title() + reset)
                 speak(f'Launching {app}!')
             except:
+                print(red + f"\n\tCouldn't Launch {app.title()}!" + reset)
                 speak(f"Couldn't Launch {app}")
-                print(red + f"\n\tCouldn't Launch {app}!" + reset)
 
         # Organises Files in a Specific Directory.
         elif "organise file" in query or  "manage file" in query:
@@ -387,11 +395,6 @@ if __name__ == "__main__":
         elif 'who are you' in query:
             print(yellow + f'\n\tI am {bot.title()}, Your Virtual Assistant!' + reset)
             speak(f"I am {bot}, Your Virtual Assistant.")
-
-        # Copies User's Command.
-        elif 'say' in query:
-            copy = query.replace("say", "")
-            speak(copy)
 
         # Exit or Quit.
         elif 'exit' in query or f'bye' in query:
