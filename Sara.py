@@ -143,8 +143,7 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        #query = command().lower()
-        query = input(blue + '\n  Type Something : ' + reset).lower()
+        query = command().lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -214,7 +213,7 @@ if __name__ == "__main__":
         # Grabs Photo Using WebCam.
         elif 'grab image' in query or ' grab photo' in query:
             grabPhoto()
-        
+
         # Plays Music.
         elif 'music' in query or 'song' in query:
             playMusic()
@@ -278,7 +277,7 @@ if __name__ == "__main__":
         # Organises Files in a Specific Directory.
         elif "organise file" in query or  "manage file" in query:
             organiseFiles()
-                
+   
         # Opens Notepad.
         elif 'open notepad' in query:
             print(yellow + '\n\tOpening NOTEPAD!' + reset)
