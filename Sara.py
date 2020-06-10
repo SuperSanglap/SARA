@@ -129,7 +129,7 @@ def grabPhoto():
         speak('Unable to Grab Image!')
 
 # User Details.
-name = 'Sanglap' # Enter Your Name
+name = 'Sanglap'.lower() # Enter Your Name
 bot = 'Sara'.lower() # Voice Assistant Name
 emailadd = 'User_Mail ID' # E-Mail ID
 pword = 'User_Mail Password' # E-mail Password
@@ -143,7 +143,8 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        query = command().lower()
+        #query = command().lower()
+        query = input(blue + '\n  Type Something : ' + reset).lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -169,7 +170,8 @@ if __name__ == "__main__":
 
         # Searches With Google.
         elif "search" in query or 'google' in query:
-            query = query.replace("search for ", "")
+            query = query.replace("search ", "")
+            query = query.replace(" for ", "")
             query = query.replace(' google', '')
             query = query.replace('google ', '')
             webbrowser.open(f'https://www.google.com/search?q={query}')
@@ -226,6 +228,7 @@ if __name__ == "__main__":
                 speak('In Which Language Should I Translate It?')
                 destL = input(green + '\n\tTranslate To : ' + reset) #command.lower()
                 destL = destL.lower()
+                destL = destL.replace('in ', '')
                 destL = destL.replace('translate ', '')
                 destL = destL.replace('to ', '')
                 destL = destL.replace('language ', '')
@@ -380,6 +383,11 @@ if __name__ == "__main__":
             print(yellow + f'\n\t{as_i_am} Thanks For Asking!' + reset)
             speak(as_i_am + ' Thanks For Asking!')
 
+        # User's Name in Query.
+        elif name in query or f' {name}' in query or f' {name} ' in query:
+            print(yellow + f"\n\tIt's Your Name! {name}." + reset)
+            speak(f"It's Your Name! {name}.")            
+
         # Tells User's Identity.
         elif 'who am i' in query:
             print(yellow + f'\n\tYou are {name}.' + reset)
@@ -426,5 +434,13 @@ if __name__ == "__main__":
                     print(green + f'\n\tWikipedia Says: {yellow} {results}' + reset)
                     speak(f"Wikipedia Says {results}")
             except:
-                print(red + "\n\tI Don't Know How to Reply This!" + reset)
-                speak("I Don't Know, How to Reply This!")
+                print(yellow + "\n\tShould I Google It?" + reset)
+                speak("Should I Google It?")
+                reply = input(green + '\n\tReply : ' + reset).lower()#command().lower()
+                if "yes" in reply or 'ok' in reply or 'yup' in reply or 'do' in reply:
+                    webbrowser.open(f'https://www.google.com/search?q={query}')
+                    print(yellow + f'\n\tSearching For "{query.title()}"' + reset)
+                    speak(f"Searching for {query}")
+                else:
+                    print(red + "\n\tI Don't Know How to Reply This!" + reset)
+                    speak("I Don't Know, How to Reply This!")
