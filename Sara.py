@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from PIL import ImageGrab
 from colored import fg, attr
 from googletrans import Translator
+from getpass import getpass
 
 # Color Properties.
 reset = attr('reset')
@@ -40,7 +41,7 @@ def command():
         query = r.recognize_google(audio, language='en-us')
         print(f"  {name} Said : {red} {query}\n" + reset)
     except:
-        return "empty___query"
+        return "empty_^_^_query"
     return query
 
 # Bades With The Time.
@@ -132,7 +133,6 @@ def grabPhoto():
 name = 'Sanglap'.lower() # Enter Your Name
 bot = 'Sara'.lower() # Voice Assistant Name
 emailadd = 'User_Mail ID' # E-Mail ID
-pword = 'User_Mail Password' # E-mail Password
 
 os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     while True:
 
         #query = command().lower()
-        query = input(blue + '\n  Type Something : ' + reset).lower()
+        query = input(red + f'\n >{blue} Type Something : ' + reset).lower()
 
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -254,9 +254,12 @@ if __name__ == "__main__":
         # Sends E-mail With G-Mail.
         elif 'send email' in query or 'an email' in query:
             try:
+                speak('Atfirst Enter Your Password!')
+                pword = getpass(green + '\n\tEnter Your Password : '+ reset)
                 speak("Ok! Whom to Send? Enter the E-mail ID")
                 to = input(green + "\n\tEmail To : " + reset)
-                speak("Now Tell Me What to Say?")
+                speak("What Should I Say?")
+                print(yellow +'\n\tWhat Should I Say?' + reset)
                 content = command().title()
                 sendEmail(to, content)
                 print(green + '\n\tE-mail Has Been Sent!' + reset)
@@ -393,6 +396,11 @@ if __name__ == "__main__":
             print(yellow + f'\n\tYou are {name}.' + reset)
             speak(f"You Are {name}.")
 
+        # It's Creator
+        elif 'who made you' in query or 'who created you' in query:
+            print(yellow + '\n\tI Was Made by Sanglap.' + reset)
+            speak("I Was Made By Sanglap.")
+
         # Tells Her Name
         elif 'what is your name' in query:
             print(yellow + f'\n\t My Name is {bot.title()}.' + reset)
@@ -416,7 +424,7 @@ if __name__ == "__main__":
             exit()
 
         # Invaild Query.
-        elif 'empty___query' in query:
+        elif 'empty_^_^_query' in query:
             print(red + "  Did Not Get It...\n" + reset)
             speak('Did not Get it!')
 
@@ -427,7 +435,7 @@ if __name__ == "__main__":
                     client  = wolframalpha.Client('9LXRT5-WHYX7PK8HX')
                     res = client.query(query)
                     output = next(res.results).text 
-                    print(green + f'\n\tAnswer: {yellow} {output}' + reset)
+                    print(yellow + f'\n\t{output}' + reset)
                     speak(output)
                 except:
                     results = wikipedia.summary(query, sentences=2)
@@ -439,8 +447,8 @@ if __name__ == "__main__":
                 reply = input(green + '\n\tReply : ' + reset).lower()#command().lower()
                 if "yes" in reply or 'ok' in reply or 'yup' in reply or 'do' in reply:
                     webbrowser.open(f'https://www.google.com/search?q={query}')
-                    print(yellow + f'\n\tSearching For "{query.title()}"' + reset)
-                    speak(f"Searching for {query}")
+                    print(yellow + f'\n\tGoogling For "{query.title()}"' + reset)
+                    speak(f"Googling for {query}")
                 else:
-                    print(red + "\n\tI Don't Know How to Reply This!" + reset)
-                    speak("I Don't Know, How to Reply This!")
+                    print(red + "\n\tUnable to Reply This!" + reset)
+                    speak("Unable to Reply This!")
