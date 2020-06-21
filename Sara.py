@@ -133,6 +133,7 @@ def grabPhoto():
 name = 'Sanglap'.lower() # Enter Your Name
 bot = 'Sara'.lower() # Voice Assistant Name
 emailadd = 'User_Mail ID' # E-Mail ID
+pword = 'empty_^_^_pword' # Static Pword
 
 os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
@@ -142,7 +143,8 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-        query = command().lower()
+        #query = command().lower()
+        query = input(red + f'\n >{blue} Type Something : ' + reset).lower()
         
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -252,9 +254,12 @@ if __name__ == "__main__":
         # Sends E-mail With G-Mail.
         elif 'send email' in query or 'an email' in query:
             try:
-                speak('Atfirst Enter Your Password!')
-                pword = getpass(green + '\n\tEnter Your Password : '+ reset)
-                speak("Ok! Whom to Send? Enter the E-mail ID")
+                if pword == 'empty_^_^_pword':
+                    speak('Atfirst Enter Your Password!')
+                    pword = getpass(green + '\n\tEnter Your Password : '+ reset)
+                    speak("Ok! Whom to Send? Enter the E-mail ID")
+                else:
+                    speak("Ok! Whom to Send? Enter the E-mail ID")
                 to = input(green + "\n\tEmail To : " + reset)
                 speak("What Should I Say?")
                 print(yellow +'\n\tWhat Should I Say?' + reset)
@@ -351,12 +356,12 @@ if __name__ == "__main__":
         # Answers Your Hello.
         elif f'hello' in query or f'hi {bot}' in query:
             hello_ans = [
-                f'Hi {name}',
-                f'Hey {name}',
-                f'Hello {name}',
-                f'Hi There {name}',
-                f'Hey There {name}',
-                f'Hello There {name}'
+                f'Hi {name}!',
+                f'Hey {name}!',
+                f'Hello {name}!',
+                f'Hi There {name}!',
+                f'Hey There {name}!',
+                f'Hello There {name}!'
             ]
             hello_ans = random.choice(hello_ans)
             print(yellow + f'\n\t{hello_ans}! How Can I Help You?' + reset)
@@ -417,13 +422,8 @@ if __name__ == "__main__":
             print(yellow + '\n\tI Was Made by Sanglap.' + reset)
             speak("I Was Made By Sanglap.")
 
-        # Tells Her Name
-        elif 'what is your name' in query:
-            print(yellow + f'\n\t My Name is {bot.title()}.' + reset)
-            speak(f'I am {bot}')
-
         # Tells It's Identity.
-        elif 'who are you' in query:
+        elif 'who are you' in query or 'what is your name' in query:
             print(yellow + f'\n\tI am {bot.title()}, Your Virtual Assistant!' + reset)
             speak(f"I am {bot}, Your Virtual Assistant.")
 
