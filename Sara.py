@@ -143,7 +143,8 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-        query = command().lower()
+        #query = command().lower()
+        query = input(red + f'\n >{blue} Type Something : ' + red).lower()
         
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -158,6 +159,14 @@ if __name__ == "__main__":
                 speak("Couldn't Get Results!")
 
         # Opens Any Website.
+        elif 'goto' in query or 'go to' in query:
+            query = query.replace('goto ', '')
+            query = query.replace('go to ', '')
+            print(yellow + '\n\tOpening ' + query + reset)
+            speak(f"Opening {query}!")
+            webbrowser.open('http://'+ query)
+
+        # Opens Websites With Undersigned Domains.
         elif '.com' in query or '.org' in query or '.net' in query or '.io' in query:
             query = query.replace('open ', '')
             query = query.replace('start ', '')
@@ -180,7 +189,8 @@ if __name__ == "__main__":
         # Fetches Youtube Results.
         elif "youtube" in query:
             speak("Ok! Fetching Results")
-            query = query.replace("youtube", "")
+            query = query.replace("youtube ", "")
+            query = query.replace(" youtube", "")
             webbrowser.open(f'https://www.youtube.com/results?search_query={query}')
             print(yellow + '\n\tCheckout YouTube Results!' + reset)
             speak("Checkout Youtube Results!")
@@ -251,7 +261,7 @@ if __name__ == "__main__":
             img.show()
 
         # Sends E-mail With G-Mail.
-        elif 'send email' in query or 'an email' in query:
+        elif 'send email' in query or 'send an email' in query:
             try:
                 if pword == '©empty_^_^_pwordª':
                     speak('Atfirst Enter Your Password!')
@@ -407,7 +417,7 @@ if __name__ == "__main__":
             print(yellow + f"\n\tHello {name.title()}" + reset)
             speak(f'Hello {name}')
 
-        # Changes Bot's Name
+        # Changes Bot's Name.
         elif 'change your name' in query:
             print(yellow + f"\n\tWhat Do You Want My Name To Be?" + reset)
             speak('What Do You Want My Name To Be?')
@@ -416,7 +426,7 @@ if __name__ == "__main__":
             print(yellow + f"\n\tI am {bot} From Now!" + reset)
             speak(f'I am {bot} From Now!')
 
-        # It's Creator
+        # It's Creator.
         elif 'who made you' in query or 'who created you' in query:
             print(yellow + '\n\tI Was Made by Sanglap.' + reset)
             speak("I Was Made By Sanglap.")
@@ -427,23 +437,23 @@ if __name__ == "__main__":
             speak(f"I am {bot}, Your Virtual Assistant.")
 
         # Exit or Quit.
-        elif 'exit' in query or f'bye' in query:
+        elif 'exit' in query or 'bye' in query:
             hour = int(datetime.datetime.now().hour)
             if hour>=3 and hour<18:
                 print(yellow + f'\n\tBye {name.title()}, Have a Good Day!' + reset)
                 speak(f'Bye {name}, Have a Good Day!')
             else:
                 print(yellow + f'\n\tBye {name.title()}, Have a Good Night!' + reset)
-                speak(f'Bye {name}, Have a Good Night!')
+                speak(f'Bye {name}, Good Night!')
             print(red + "\n\t<!!! OFFLINE !!!>" + reset)
-            exit()
+            exit(0)
 
         # Invaild Query.
         elif '©empty_^_^_queryª' in query:
             print(red + "  Did Not Get It...\n" + reset)
             speak('Did not Get it!')
 
-        # If "Query Is None Of The Above"
+        # If Query Is None Of The Above.
         else:
             try:
                 try:
@@ -461,9 +471,9 @@ if __name__ == "__main__":
                 speak("Should I Google It?")
                 reply = input(green + '\n\tReply : ' + reset).lower()#command().lower()
                 if "yes" in reply or 'ok' in reply or 'yup' in reply or 'do' in reply:
-                    webbrowser.open(f'https://www.google.com/search?q={query}')
                     print(yellow + f'\n\tGoogling For "{query.title()}"' + reset)
                     speak(f"Googling for {query}")
+                    webbrowser.open(f'https://www.google.com/search?q={query}')
                 else:
                     print(red + "\n\tSorry, Unable to Reply This!" + reset)
                     speak("Sorry, Unable to Reply This!")
