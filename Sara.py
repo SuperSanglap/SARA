@@ -41,7 +41,7 @@ def command():
         query = r.recognize_google(audio, language='en-us')
         print(f"  {name} Said : {red} {query}\n" + reset)
     except:
-        return "empty_^_^_query"
+        return "©empty_^_^_queryª"
     return query
 
 # Bades With The Time.
@@ -82,7 +82,7 @@ def playMusic():
         speak('Unable to Play Music From Your Device!')
         print(red + '\n\tUnable to Play Music!' + reset)
 
-# Organises Files In a Valid Directory.
+# Organises Files in a Valid Directory.
 def organiseFiles():
     try:
         speak("Enter a Valid Directory to Organise.")
@@ -142,10 +142,9 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-
         #query = command().lower()
         query = input(red + f'\n >{blue} Type Something : ' + reset).lower()
-
+        
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
             try:
@@ -348,7 +347,7 @@ if __name__ == "__main__":
             print(yellow + '\n\tShutting Down! Bye.' + reset)
             os.system('shutdown -s')
             print(red + "\n\t<!!! OFFLINE !!!>" + reset)
-            exit()
+            exit(0)
 
         # Answers Your Hello.
         elif f'hello' in query or f'hi {bot}' in query:
@@ -396,6 +395,24 @@ if __name__ == "__main__":
             print(yellow + f'\n\tYou are {name}.' + reset)
             speak(f"You Are {name}.")
 
+        # Changes User's Name
+        elif 'change my name' in query:
+            print(yellow + f"\n\tWhat Should I Call You From Now?" + reset)
+            speak('What Should I Call You From Now?')
+            name = command().title()
+            name = name.replace('Call Me ', "")
+            print(yellow + f"\n\tHello {name}" + reset)
+            speak(f'Hello {name}')
+
+        # Changes Bot's Name
+        elif 'change your name' in query:
+            print(yellow + f"\n\tWhat Do You Want My Name To Be?" + reset)
+            speak('What Do You Want My Name To Be?')
+            bot = command().title()
+            bot = name.replace('Change Your Name ', "")
+            print(yellow + f"\n\tI am {bot} From Now!" + reset)
+            speak(f'I am {bot} From Now!')
+
         # It's Creator
         elif 'who made you' in query or 'who created you' in query:
             print(yellow + '\n\tI Was Made by Sanglap.' + reset)
@@ -424,7 +441,7 @@ if __name__ == "__main__":
             exit()
 
         # Invaild Query.
-        elif 'empty_^_^_query' in query:
+        elif '©empty_^_^_queryª' in query:
             print(red + "  Did Not Get It...\n" + reset)
             speak('Did not Get it!')
 
@@ -450,5 +467,5 @@ if __name__ == "__main__":
                     print(yellow + f'\n\tGoogling For "{query.title()}"' + reset)
                     speak(f"Googling for {query}")
                 else:
-                    print(red + "\n\tUnable to Reply This!" + reset)
-                    speak("Unable to Reply This!")
+                    print(red + "\n\tSorry, Unable to Reply This!" + reset)
+                    speak("Sorry, Unable to Reply This!")
