@@ -48,16 +48,16 @@ def command():
 def greet_user():
     hour = int(datetime.datetime.now().hour)
     if hour>=22 and hour<5:
-        print(yellow + f'\n\tGood Night, {name}!' + reset)
+        print(yellow + f'\n\tGood Night, {name.title()}!' + reset)
         speak(f'Good Night,{name}')
     elif hour>=5 and hour<12:
-        print(yellow + f'\n\tGood Morning, {name}!' + reset)
+        print(yellow + f'\n\tGood Morning, {name.title()}!' + reset)
         speak(f'Good Morning,{name}')
     elif hour>=12 and hour<18:
-        print(yellow + f'\n\tGood Afternoon, {name}!' + reset)
+        print(yellow + f'\n\tGood Afternoon, {name.title()}!' + reset)
         speak(f'Good Afternoon,{name}')
     else:
-        print(yellow + f'\n\tGood Evening, {name}!' + reset)
+        print(yellow + f'\n\tGood Evening, {name.title()}!' + reset)
         speak(f'Good Evening,{name}')
 
 # Function Of Sending E-mail using Gmail.
@@ -133,7 +133,7 @@ def grabPhoto():
 name = 'Sanglap'.lower() # Enter Your Name
 bot = 'Sara'.lower() # Voice Assistant Name
 emailadd = 'User_Mail ID' # E-Mail ID
-pword = 'empty_^_^_pword' # Static Pword
+pword = '©empty_^_^_pwordª' # Static Pword (Must Not Be Changed)
 
 os.system('cls')
 print(green + "\n\t<!!! ONLINE !!!>" + reset)
@@ -143,8 +143,7 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-        #query = command().lower()
-        query = input(red + f'\n >{blue} Type Something : ' + reset).lower()
+        query = command().lower()
         
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -254,7 +253,7 @@ if __name__ == "__main__":
         # Sends E-mail With G-Mail.
         elif 'send email' in query or 'an email' in query:
             try:
-                if pword == 'empty_^_^_pword':
+                if pword == '©empty_^_^_pwordª':
                     speak('Atfirst Enter Your Password!')
                     pword = getpass(green + '\n\tEnter Your Password : '+ reset)
                     speak("Ok! Whom to Send? Enter the E-mail ID")
@@ -356,12 +355,12 @@ if __name__ == "__main__":
         # Answers Your Hello.
         elif f'hello' in query or f'hi {bot}' in query:
             hello_ans = [
-                f'Hi {name}!',
-                f'Hey {name}!',
-                f'Hello {name}!',
-                f'Hi There {name}!',
-                f'Hey There {name}!',
-                f'Hello There {name}!'
+                f'Hi {name.title()}!',
+                f'Hey {name.title()}!',
+                f'Hello {name.title()}!',
+                f'Hi There {name.title()}!',
+                f'Hey There {name.title()}!',
+                f'Hello There {name.title()}!'
             ]
             hello_ans = random.choice(hello_ans)
             print(yellow + f'\n\t{hello_ans}! How Can I Help You?' + reset)
@@ -391,12 +390,12 @@ if __name__ == "__main__":
 
         # User's Name in Query.
         elif name in query or f' {name}' in query or f' {name} ' in query:
-            print(yellow + f"\n\tIt's Your Name! {name}." + reset)
+            print(yellow + f"\n\tIt's Your Name! {name.title()}." + reset)
             speak(f"It's Your Name! {name}.")            
 
         # Tells User's Identity.
         elif 'who am i' in query:
-            print(yellow + f'\n\tYou are {name}.' + reset)
+            print(yellow + f'\n\tYou are {name.title()}.' + reset)
             speak(f"You Are {name}.")
 
         # Changes User's Name
@@ -405,7 +404,7 @@ if __name__ == "__main__":
             speak('What Should I Call You From Now?')
             name = command().title()
             name = name.replace('Call Me ', "")
-            print(yellow + f"\n\tHello {name}" + reset)
+            print(yellow + f"\n\tHello {name.title()}" + reset)
             speak(f'Hello {name}')
 
         # Changes Bot's Name
@@ -431,10 +430,10 @@ if __name__ == "__main__":
         elif 'exit' in query or f'bye' in query:
             hour = int(datetime.datetime.now().hour)
             if hour>=3 and hour<18:
-                print(yellow + f'\n\tBye {name}, Have a Good Day!' + reset)
+                print(yellow + f'\n\tBye {name.title()}, Have a Good Day!' + reset)
                 speak(f'Bye {name}, Have a Good Day!')
             else:
-                print(yellow + f'\n\tBye {name}, Have a Good Night!' + reset)
+                print(yellow + f'\n\tBye {name.title()}, Have a Good Night!' + reset)
                 speak(f'Bye {name}, Have a Good Night!')
             print(red + "\n\t<!!! OFFLINE !!!>" + reset)
             exit()
