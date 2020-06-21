@@ -234,7 +234,7 @@ if __name__ == "__main__":
             try:
                 sentence = query.title()
                 speak('In Which Language Should I Translate It?')
-                destL = input(green + '\n\tTranslate To : ' + reset) #command.lower()
+                destL = command.lower()
                 destL = destL.lower()
                 destL = destL.replace('in ', '')
                 destL = destL.replace('translate ', '')
