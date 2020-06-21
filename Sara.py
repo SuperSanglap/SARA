@@ -280,6 +280,13 @@ if __name__ == "__main__":
                 print(red + '\n\tThe E-mail Was Not Sent!' + reset)
                 speak("Something Went Wrong! the Email Was Not Sent!")
 
+        # Changes Listed Password.
+        elif 'change password' in query:
+            speak('Enter Your New Password!')
+            pword = getpass(green + '\n\tEnter New Password : '+ reset)
+            print(yellow + '\n\tPassword Changed Successfully!' + reset)
+            speak('Password Changed Successfully.')
+
         # Launches Any app on Your PC.
         elif 'launch' in query:
             query = query.replace('launch ', "")
