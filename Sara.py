@@ -143,7 +143,8 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
-        query = command().lower()
+        #query = command().lower()
+        query = input(red + f'\n >{blue} Type Something : ' + red).lower()
         
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -228,13 +229,21 @@ if __name__ == "__main__":
         elif 'music' in query or 'song' in query:
             playMusic()
 
+        # Plays Any Music Online.
+        elif 'play ' in query:
+            query = query.replace('play ', '')
+            musicSearch = f'https://music.youtube.com/search?q={query}'
+            print(yellow + f"\n\tPlaying {query} Online." + reset)
+            speak(f'Playing {query} Online!')
+            webbrowser.open(musicSearch)
+
         # Translates English to Any Language.
         elif 'translate' in query:
             query = query.replace('translate ', '')
             try:
                 sentence = query.title()
                 speak('In Which Language Should I Translate It?')
-                destL = command.lower()
+                destL = input(green + '\n\tTranslate To : ' + reset) #command.lower()
                 destL = destL.lower()
                 destL = destL.replace('in ', '')
                 destL = destL.replace('translate ', '')
