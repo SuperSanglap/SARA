@@ -30,7 +30,7 @@ def speak(audio):
 def command():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print('\n*\n' + blue + "\n  Listening...\n" + reset)
+        print(reset + '\n*\n' + blue + "\n  Listening...\n" + reset)
         speak('Listening')
         r.adjust_for_ambient_noise = 1.25
         r.pause_threshold = 1
@@ -143,15 +143,17 @@ speak("How Can I Help You?")
 
 if __name__ == "__main__":
     while True:
+
         #query = command().lower()
-        query = input(red + f'\n >{blue} Type Something : ' + red).lower()
+        query = input(red + f'\n >>{blue} Type Something : ' + red).lower()
         
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
             try:
                 speak('Searching Wikipedia')
-                query = query.replace("sara wikipedia ", "")
-                wikiResults = wikipedia.summary(query, sentences=2)
+                query = query.replace(" wikipedia", "")
+                query = query.replace(" wiki", "")
+                wikiResults = wikipedia.summary(query, sentences=5)
                 print(green + f"\n\tAccording to Wikipedia:{yellow}\t {wikiResults}" + reset)
                 speak('According to Wikipedia: '+ wikiResults)
             except Exception as e:
@@ -226,7 +228,7 @@ if __name__ == "__main__":
             grabPhoto()
 
         # Plays Music.
-        elif 'music' in query or 'song' in query:
+        elif 'play music' in query or 'play song' in query:
             playMusic()
 
         # Plays Any Music Online.
@@ -360,8 +362,8 @@ if __name__ == "__main__":
 
         # Shows All Running Tasks.
         elif 'task list' in query or 'tasklist' in query:
-            print(green + '\n\tShowing Running Tasks!' + yellow)
-            speak('Showing Running Tasks!')
+            print(green + '\n\tShowing All Running Tasks!' + yellow)
+            speak('Showing All Running Tasks!')
             subprocess.call('tasklist')
 
         # Clears the Console.
@@ -392,7 +394,7 @@ if __name__ == "__main__":
             speak(f'{hello_ans}! How Can I Help You?')
 
         # Reacts If User Says Hey.
-        elif f"hey" in query:
+        elif "hey" in query or "hi" == query:
             hey_ans = [
                 'Ready to Help You!',
                 'How Can I Help You?',
@@ -403,7 +405,7 @@ if __name__ == "__main__":
             speak(hey_ans)
 
         # Says It's Condition.
-        elif 'how are you' in query:
+        elif 'how are you' in query or 'how do you do' in query:
             as_i_am = [
                 'I am Fine,',
                 'I am Doing Well,',
@@ -416,7 +418,7 @@ if __name__ == "__main__":
         # User's Name in Query.
         elif name in query or f' {name}' in query or f' {name} ' in query:
             print(yellow + f"\n\tIt's Your Name! {name.title()}." + reset)
-            speak(f"It's Your Name! {name}.")            
+            speak(f"It's Your Name! {name}.")                            
 
         # Tells User's Identity.
         elif 'who am i' in query:
@@ -458,10 +460,21 @@ if __name__ == "__main__":
                 print(yellow + f'\n\tBye {name.title()}, Have a Good Day!' + reset)
                 speak(f'Bye {name}, Have a Good Day!')
             else:
-                print(yellow + f'\n\tBye {name.title()}, Have a Good Night!' + reset)
+                print(yellow + f'\n\tBye {name.title()}, Good Night!' + reset)
                 speak(f'Bye {name}, Good Night!')
             print(red + "\n\t<!!! OFFLINE !!!>" + reset)
             exit(0)
+
+        # If Only It's Name in Query.
+        elif bot == query:
+            toReply = [
+                'Ready to Help You!',
+                'How Can I Help You?',
+                'I am Here'
+            ]
+            toReply = random.choice(toReply)
+            print(yellow + f"\n\t{toReply}" + reset)
+            speak(toReply)
 
         # Invaild Query.
         elif '©empty_^_^_queryª' in query:
@@ -475,12 +488,12 @@ if __name__ == "__main__":
                     client  = wolframalpha.Client('9LXRT5-WHYX7PK8HX')
                     res = client.query(query)
                     output = next(res.results).text 
-                    print(yellow + f'\n\t{output}' + reset)
+                    print(yellow + f'\n\t{output.title()}' + reset)
                     speak(output)
                 except:
                     results = wikipedia.summary(query, sentences=2)
-                    print(green + f'\n\tWikipedia Says: {yellow} {results}' + reset)
-                    speak(f"Wikipedia Says {results}")
+                    print(f'\n\t{yellow} {results.title()}' + reset)
+                    speak(results)
             except:
                 print(yellow + "\n\tShould I Google It?" + reset)
                 speak("Should I Google It?")
@@ -490,5 +503,5 @@ if __name__ == "__main__":
                     speak(f"Googling for {query}")
                     webbrowser.open(f'https://www.google.com/search?q={query}')
                 else:
-                    print(red + "\n\tSorry, Unable to Reply This!" + reset)
-                    speak("Sorry, Unable to Reply This!")
+                    print(red + "\n\tSorry, I Can Do Nothing With It!" + reset)
+                    speak("Sorry, I Can Do Nothing With It!")
