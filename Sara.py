@@ -132,6 +132,7 @@ def grabPhoto():
 # User Details.
 name = 'Sanglap'.lower() # Enter Your Name
 bot = 'Sara'.lower() # Voice Assistant Name
+wakeWord = 'Wake'.lower() # Wake Word For Sara
 emailadd = 'User_Mail ID' # E-Mail ID
 pword = '©empty_^_^_pwordª' # Static Pword (Must Not Be Changed)
 
@@ -159,7 +160,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(red + '\n\tUnable to Get Results!' + reset)
                 speak("Couldn't Get Results!")
-
+                
         # Opens Any Website.
         elif 'goto' in query or 'go to' in query:
             query = query.replace('goto ', '')
@@ -180,7 +181,7 @@ if __name__ == "__main__":
 
         # Searches With Google.
         elif "search" in query or 'google' in query:
-            query = query.replace("search ", "")
+            query = query.replace("search", "")
             query = query.replace(" for ", "")
             query = query.replace(' google', '')
             query = query.replace('google ', '')
@@ -429,19 +430,27 @@ if __name__ == "__main__":
         elif 'change my name' in query:
             print(yellow + f"\n\tWhat Should I Call You From Now?" + reset)
             speak('What Should I Call You From Now?')
-            name = command().title()
-            name = name.replace('Call Me ', "")
-            print(yellow + f"\n\tHello {name.title()}" + reset)
-            speak(f'Hello {name}')
+            name = input(green + '\n\tChange to : ' + reset) #command().title()
+            if name != "©empty_^_^_queryª":
+                name = name.replace('Call Me ', "")
+                print(yellow + f"\n\tHello {name.title()}" + reset)
+                speak(f'Hello {name}')
+            else:
+                print(red + '\n\tSorry! Your Name Was Not Changed!')
+                speak('Sorry! Your Name Was Not Changed!')
 
         # Changes Bot's Name.
         elif 'change your name' in query:
             print(yellow + f"\n\tWhat Do You Want My Name To Be?" + reset)
             speak('What Do You Want My Name To Be?')
-            bot = command().title()
-            bot = name.replace('Change Your Name ', "")
-            print(yellow + f"\n\tI am {bot.title()} From Now!" + reset)
-            speak(f'I am {bot} From Now!')
+            bot = input(green + '\n\tChange to : ' + reset) # command().title()
+            if bot != "©empty_^_^_queryª":
+                bot = bot.replace('Change Your Name to ', "")
+                print(yellow + f"\n\tI am {bot.title()} From Now!" + reset)
+                speak(f'I am {bot} From Now!')
+            else:
+                print(red + '\n\tSorry! My Name Was Not Changed!')
+                speak('Sorry! My Name Was Not Changed!')
 
         # It's Creator.
         elif 'who made you' in query or 'who created you' in query:
@@ -454,7 +463,7 @@ if __name__ == "__main__":
             speak(f"I am {bot}, Your Virtual Assistant.")
 
         # Exit or Quit.
-        elif 'exit' in query or 'bye' in query:
+        elif 'exit' in query:
             hour = int(datetime.datetime.now().hour)
             if hour>=3 and hour<18:
                 print(yellow + f'\n\tBye {name.title()}, Have a Good Day!' + reset)
@@ -497,7 +506,7 @@ if __name__ == "__main__":
             except:
                 print(yellow + "\n\tShould I Google It?" + reset)
                 speak("Should I Google It?")
-                reply = input(green + '\n\tReply : ' + reset).lower()#command().lower()
+                reply = command().lower() #input(green + '\n\tReply : ' + reset).lower()
                 if "yes" in reply or 'ok' in reply or 'yup' in reply or 'do' in reply:
                     print(yellow + f'\n\tGoogling For "{query.title()}"' + reset)
                     speak(f"Googling for {query}")
