@@ -430,7 +430,7 @@ if __name__ == "__main__":
         elif 'change my name' in query:
             print(yellow + f"\n\tWhat Should I Call You From Now?" + reset)
             speak('What Should I Call You From Now?')
-            name = input(green + '\n\tChange to : ' + reset) #command().title()
+            name = command().title()
             if name != "©empty_^_^_queryª":
                 name = name.replace('Call Me ', "")
                 print(yellow + f"\n\tHello {name.title()}" + reset)
@@ -443,7 +443,7 @@ if __name__ == "__main__":
         elif 'change your name' in query:
             print(yellow + f"\n\tWhat Do You Want My Name To Be?" + reset)
             speak('What Do You Want My Name To Be?')
-            bot = input(green + '\n\tChange to : ' + reset) # command().title()
+            bot = command().title()
             if bot != "©empty_^_^_queryª":
                 bot = bot.replace('Change Your Name to ', "")
                 print(yellow + f"\n\tI am {bot.title()} From Now!" + reset)
