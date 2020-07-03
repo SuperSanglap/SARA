@@ -145,8 +145,8 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        query = command().lower()
-        #query = input(red + f'\n >>{blue} Type Something : ' + red).lower()
+        #query = command().lower()
+        query = input(red + f'\n >>{blue} Type Something : ' + red).lower()
         
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
@@ -251,7 +251,6 @@ if __name__ == "__main__":
                 destL = destL.replace('in ', '')
                 destL = destL.replace('translate ', '')
                 destL = destL.replace('to ', '')
-                destL = destL.replace('language ', '')
                 translated_sent = Translator().translate(sentence, src = 'en' , dest = destL)
                 translated = translated_sent.text
                 try:
@@ -421,16 +420,11 @@ if __name__ == "__main__":
             print(yellow + f"\n\tIt's Your Name! {name.title()}." + reset)
             speak(f"It's Your Name! {name}.")                            
 
-        # Tells User's Identity.
-        elif 'who am i' in query:
-            print(yellow + f'\n\tYou are {name.title()}.' + reset)
-            speak(f"You Are {name}.")
-
         # Changes User's Name
         elif 'change my name' in query:
             print(yellow + f"\n\tWhat Should I Call You From Now?" + reset)
             speak('What Should I Call You From Now?')
-            name = command().title()
+            name = input(green + '\n\tChange to : ' + reset) #command().title()
             if name != "©empty_^_^_queryª":
                 name = name.replace('Call Me ', "")
                 print(yellow + f"\n\tHello {name.title()}" + reset)
@@ -443,7 +437,7 @@ if __name__ == "__main__":
         elif 'change your name' in query:
             print(yellow + f"\n\tWhat Do You Want My Name To Be?" + reset)
             speak('What Do You Want My Name To Be?')
-            bot = command().title()
+            bot = input(green + '\n\tChange to : ' + reset) # command().title()
             if bot != "©empty_^_^_queryª":
                 bot = bot.replace('Change Your Name to ', "")
                 print(yellow + f"\n\tI am {bot.title()} From Now!" + reset)
@@ -452,13 +446,18 @@ if __name__ == "__main__":
                 print(red + '\n\tSorry! My Name Was Not Changed!')
                 speak('Sorry! My Name Was Not Changed!')
 
+        # Tells User's Identity.
+        elif 'who am i' in query or 'my name' in query:
+            print(yellow + f'\n\tYou are {name.title()}.' + reset)
+            speak(f"You Are {name}.")
+
         # It's Creator.
         elif 'who made you' in query or 'who created you' in query:
             print(yellow + '\n\tI Was Made by Sanglap.' + reset)
             speak("I Was Made By Sanglap.")
 
         # Tells It's Identity.
-        elif 'who are you' in query or 'what is your name' in query:
+        elif 'who are you' in query or 'your name' in query:
             print(yellow + f'\n\tI am {bot.title()}, Your Virtual Assistant!' + reset)
             speak(f"I am {bot}, Your Virtual Assistant.")
 
