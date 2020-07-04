@@ -145,9 +145,7 @@ speak("How Can I Help You?")
 if __name__ == "__main__":
     while True:
 
-        #query = command().lower()
-        query = input(red + f'\n >>{blue} Type Something : ' + red).lower()
-        
+        query = command().lower()
         # Searches Wikipedia.
         if 'wiki' in query or 'wikipedia' in query:
             try:
@@ -246,7 +244,7 @@ if __name__ == "__main__":
             try:
                 sentence = query.title()
                 speak('In Which Language Should I Translate It?')
-                destL = input(green + '\n\tTranslate To : ' + reset) #command.lower()
+                destL = command.lower()
                 destL = destL.lower()
                 destL = destL.replace('in ', '')
                 destL = destL.replace('translate ', '')
@@ -424,9 +422,9 @@ if __name__ == "__main__":
         elif 'change my name' in query:
             print(yellow + f"\n\tWhat Should I Call You From Now?" + reset)
             speak('What Should I Call You From Now?')
-            name = input(green + '\n\tChange to : ' + reset) #command().title()
-            if name != "©empty_^_^_queryª":
-                name = name.replace('Call Me ', "")
+            nameChange = command().title()
+            if nameChange != "©empty_^_^_queryª":
+                name = nameChange.replace('Call Me ', "")
                 print(yellow + f"\n\tHello {name.title()}" + reset)
                 speak(f'Hello {name}')
             else:
@@ -437,9 +435,9 @@ if __name__ == "__main__":
         elif 'change your name' in query:
             print(yellow + f"\n\tWhat Do You Want My Name To Be?" + reset)
             speak('What Do You Want My Name To Be?')
-            bot = input(green + '\n\tChange to : ' + reset) # command().title()
-            if bot != "©empty_^_^_queryª":
-                bot = bot.replace('Change Your Name to ', "")
+            botChange = command().title()
+            if botChange != "©empty_^_^_queryª":
+                bot = botChange.replace('Change Your Name to ', "")
                 print(yellow + f"\n\tI am {bot.title()} From Now!" + reset)
                 speak(f'I am {bot} From Now!')
             else:
@@ -505,7 +503,7 @@ if __name__ == "__main__":
             except:
                 print(yellow + "\n\tShould I Google It?" + reset)
                 speak("Should I Google It?")
-                reply = command().lower() #input(green + '\n\tReply : ' + reset).lower()
+                reply = command().lower()
                 if "yes" in reply or 'ok' in reply or 'yup' in reply or 'do' in reply:
                     print(yellow + f'\n\tGoogling For "{query.title()}"' + reset)
                     speak(f"Googling for {query}")
