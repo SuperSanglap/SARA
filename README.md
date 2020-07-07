@@ -1,7 +1,9 @@
 # SARA
-This is an Advanced Voice Assistant Made With Python!
+This is an Advanced Command Line Based Voice Assistant Made With Python!
 
-This Source Code Will Never Be Updated If You Want to Get an Updated Source Code Then Please Support Me On Patreon.
+Recommended Python Version 3.6.0
+
+This Source Code Will Never Be Updated If You Want to Get an Updated and Advanced Source Code Then Please Support Me On Patreon.
 Link- https://www.patreon.com/SuperSanglap/membership
 
 
