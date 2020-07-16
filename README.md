@@ -7,17 +7,17 @@ Generate Your Own Api Key From Wolframalpha.com and Use Here or Logical Queries 
 
 This Source Code Will Never Be Updated If You Want to Get an Updated and Advanced Source Code Then Please Support Me On Patreon. Sorry to Say But The SoundRecorder, FileOrganiser, SleepFunction, Translator are Paid.
 
-Link- https://www.patreon.com/SuperSanglap/membership
+Link- https://www.patreon.com/SuperSanglap/membership 
 
 
 💬 Connect With Me:-
 
 E-Mail ID:- putatundasanglap@gmail.com 
-Instagram:- https://www.instagram.com/supersanglap/ (Guranteed Reply)
-GitHub:-    https://github.com/SuperSanglap/
-Twitter:-   https://twitter.com/SuperSanglap/
-Patreon:-   https://www.patreon.com/SuperSanglap/
-YouTube:-   https://www.youtube.com/SanglapPutatunda/
+Instagram:- https://www.instagram.com/supersanglap/ (Guranteed Reply) 
+GitHub:-    https://github.com/SuperSanglap/ 
+Twitter:-   https://twitter.com/SuperSanglap/ 
+Patreon:-   https://www.patreon.com/SuperSanglap/ 
+YouTube:-   https://www.youtube.com/SanglapPutatunda/ 
 
 
 🔥 Checkout My Motivational Page:-
