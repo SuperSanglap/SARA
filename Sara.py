@@ -1,3 +1,4 @@
+# If You Need Functions Like 'SoundRecorder', 'Translator', 'FileOrganiser', 'Sleep' etc and More Functions Then Join My Patreon Page
 # Reommended Python Version 3.6.0
 # Importing Needed Modules.
 import pyttsx3, speech_recognition as sr, datetime, wikipedia, webbrowser
@@ -211,28 +212,6 @@ if __name__ == "__main__":
             print(yellow + f"\n\tPlaying {query} Online." + reset)
             speak(f'Playing {query} Online!')
             webbrowser.open(musicSearch)
-
-        # Translates English to Any Language.
-        elif 'translate' in query:
-            query = query.replace('translate ', '')
-            try:
-                sentence = query.title()
-                speak('In Which Language Should I Translate It?')
-                destL = command().lower()
-                destL = destL.lower()
-                destL = destL.replace('in ', '')
-                destL = destL.replace('translate ', '')
-                destL = destL.replace('to ', '')
-                translated_sent = Translator().translate(sentence, src = 'en' , dest = destL)
-                translated = translated_sent.text
-                try:
-                    print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
-                    speak(f'\n\t{sentence}, in {destL}. {translated}')
-                except Exception:
-                    print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
-            except:
-                print(red + '\n\tTranslation Failed!' + reset)
-                speak("Translation Failed!")
 
         # Grabs ScreenShot.
         elif 'screenshot' in query or 'screen shot' in query:
@@ -461,7 +440,7 @@ if __name__ == "__main__":
         else:
             try:
                 try:
-                    client  = wolframalpha.Client('Your Client Key')
+                    client  = wolframalpha.Client('Your Client Key') #Generate Your Pwn API Key From wolframalpha.com
                     res = client.query(query)
                     output = next(res.results).text 
                     print(yellow + f'\n\t{output.title()}' + reset)
