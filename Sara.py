@@ -1,4 +1,5 @@
 # If You Need Functions Like 'SoundRecorder', 'Translator', 'FileOrganiser', 'Sleep' etc and More Functions Then Join My Patreon Page
+# Generate Your Own APi Key From Wolframalpha.com and Use in the Program or You Will Not Get Right Answers of The Logical Queries.
 # Reommended Python Version 3.6.0
 # Importing Needed Modules.
 import pyttsx3, speech_recognition as sr, datetime, wikipedia, webbrowser
