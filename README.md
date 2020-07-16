@@ -3,7 +3,8 @@ This is an Advanced Command Line Based Voice Assistant Made With Python!
 
 Recommended Python Version 3.6.0
 
-This Source Code Will Never Be Updated If You Want to Get an Updated and Advanced Source Code Then Please Support Me On Patreon.
+This Source Code Will Never Be Updated If You Want to Get an Updated and Advanced Source Code Then Please Support Me On Patreon. Sorry to Say But The File Organiser and Sleep Functions are Paid
+
 Link- https://www.patreon.com/SuperSanglap/membership
 
 
