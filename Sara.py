@@ -280,10 +280,6 @@ if __name__ == "__main__":
             except:
                 print(red + f"\n\tCouldn't Launch {app.title()}!" + reset)
                 speak(f"Couldn't Launch {app}")
-
-        # Organises Files in a Specific Directory.
-        elif "organise file" in query or  "manage file" in query:
-            organiseFiles()
    
         # Opens Notepad.
         elif 'open notepad' in query:
@@ -465,7 +461,7 @@ if __name__ == "__main__":
         else:
             try:
                 try:
-                    client  = wolframalpha.Client('9LXRT5-WHYX7PK8HX')
+                    client  = wolframalpha.Client('Your Client Key')
                     res = client.query(query)
                     output = next(res.results).text 
                     print(yellow + f'\n\t{output.title()}' + reset)
