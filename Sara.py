@@ -82,32 +82,6 @@ def playMusic():
         speak('Unable to Play Music From Your Device!')
         print(red + '\n\tUnable to Play Music!' + reset)
 
-# Organises Files in a Valid Directory.
-def organiseFiles():
-    try:
-        speak("Enter a Valid Directory to Organise.")
-        print('\n')
-        org_dir = input(green + r"        Directory:  " + reset)
-        all_files = os.listdir(org_dir)
-        all_fext = []
-        for f in all_files:
-            _, fext = os.path.splitext(f)
-            if fext not in all_fext:
-                all_fext.append(fext)
-        for ext in all_fext:
-            if ext:
-                os.mkdir(os.path.join(org_dir, ext))
-        for f in all_files:
-            _, ext = os.path.splitext(f)
-            old_path = os.path.join(org_dir, f)
-            new_path = os.path.join(org_dir, ext, f)
-            os.rename(old_path, new_path)
-        print(green + f"\n\tOrganised Files in {org_dir}" + reset)
-        speak(f"Organised Files!")
-    except Exception as e:
-        print(red + '\n\tUnable to Organise Fles!' + reset)
-        speak(f"Unable to Organise Files!")
-
 # Grabs Photo Using Webcam.
 def grabPhoto():
     try:
@@ -244,7 +218,7 @@ if __name__ == "__main__":
             try:
                 sentence = query.title()
                 speak('In Which Language Should I Translate It?')
-                destL = command.lower()
+                destL = command().lower()
                 destL = destL.lower()
                 destL = destL.replace('in ', '')
                 destL = destL.replace('translate ', '')
