@@ -1,15 +1,12 @@
 # Reommended & Used Python Version 3.6.0
-# Before Running the Program Please Read the Readme.txt File
+# You Will Not Get Every Feature in This File For Some Exclusive Features(Sleep, LanguageTranslator, FileOrganiser, ImageGrabber, SoundRecorder) Please Join My Patreon Page!
 
 # Importing Needed Modules.
 import pyttsx3, speech_recognition as sr, datetime, wikipedia, webbrowser
-import subprocess, wolframalpha, cv2, smtplib, pyaudio, re, os, random, time
+import subprocess, wolframalpha, smtplib, pyaudio, re, os, random, time
 import sounddevice, matplotlib.pyplot as plt
-from PIL import ImageGrab
 from colored import fg, attr
-from googletrans import Translator
 from getpass import getpass
-from scipy.io.wavfile import write
 
 # Color Properties.
 reset = attr('reset')
