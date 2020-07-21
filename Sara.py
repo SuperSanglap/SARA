@@ -501,7 +501,7 @@ if __name__ == "__main__":
         else:
             try:
                 try:
-                    client  = wolframalpha.Client('9LXRT5-WHYX7PK8HX') # Generated From wolframalpha.com
+                    client  = wolframalpha.Client('Your API') # Generated From wolframalpha.com
                     res = client.query(query)
                     output = next(res.results).text 
                     print(yellow + f'\n\t{output.title()}' + reset)
