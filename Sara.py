@@ -4,7 +4,7 @@
 # Importing Needed Modules.
 import pyttsx3, speech_recognition as sr, datetime, wikipedia, webbrowser
 import subprocess, wolframalpha, cv2, smtplib, pyaudio, re, os, random, time
-import sounddevice, matplotlib.pyplot as plt, speedtest, socket
+import sounddevice, matplotlib.pyplot as plt, socket
 from PIL import ImageGrab
 from colored import fg, attr
 from googletrans import Translator
@@ -47,28 +47,6 @@ def command():
         return "©empty_^_^_queryª"
     return query
 
-# Sleep Mechanism.
-def sleep():
-    sleepyQuery = "©sleepy_^_^_queryª"
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        r.pause_threshold = 0.75
-        audio = r.listen(source)
-        connectionCheck()
-    try:
-        sleepyQuery = r.recognize_google(audio, language='en-in').lower()
-        if wakeWord in sleepyQuery or bot in sleepyQuery:
-            return query
-        elif 'exit' in sleepyQuery or 'quit' in sleepyQuery:
-            quitApp()
-        elif 'shutdown' in sleepyQuery or 'power off' in sleepyQuery:
-            shutdown()
-        else:
-            return sleep()
-    except:
-        return sleep()
-    return sleep()
-
 # Bades With The Time.
 def greet_user():
     hour = int(datetime.datetime.now().hour)
@@ -104,36 +82,6 @@ def connectionCheck():
         print(red + '\n\tUnable to Connect!' + reset)
         speak('Unable to Connect!')
         quitApp()
-
-# Function For Testing Internet Speed.
-def speedTest():
-    connectionCheck()
-    test = speedtest.Speedtest()
-    download = test.download() /1024 /1024
-    upload = test.upload() /1024 /1024
-
-    print(f'\t{blue}Download Speed: {yellow}{download} Mbps'+ reset)
-    print(f'\t{blue}Upload Speed: {yellow}{upload} Mbps'+ reset)
-
-# Records User's Audio For 10 Secoends.
-def soundRecord():
-    fs = 44100
-    second = 10
-    speak('Recording Audio.')
-    print(yellow + '\tRecording!' + reset)
-    record_voice = sounddevice.rec(int(second * fs),samplerate=fs,channels=2)
-    sounddevice.wait()
-    write('output.wav', fs, record_voice)
-    speak('Done! Should I Play it?')
-    reply = command().lower()
-    if "yes" in reply or 'ok' in reply or 'yup' in reply or 'do' in reply:
-        print(yellow + f'\n\tOpening Recorded File' + reset)
-        speak(f"Opening File.")
-        os.startfile('output.wav')
-        sleep()
-    else:
-        print(red + "\n\tOkay! Nevermind." + reset)
-        speak("Okay! Nevermind")
 
 # Quits App.
 def quitApp():
@@ -175,33 +123,6 @@ def playMusic():
         speak('Unable to Play Music From Your Device!')
         print(red + '\n\tUnable to Play Music!' + reset)
 
-# Organises Files in a Valid Directory.
-def organiseFiles():
-    try:
-        speak("Enter a Valid Directory to Organise.")
-        print('\n')
-        org_dir = input(green + r"        Directory:  " + reset)
-        all_files = os.listdir(org_dir)
-        all_fext = []
-        for f in all_files:
-            _, fext = os.path.splitext(f)
-            if fext not in all_fext:
-                all_fext.append(fext)
-        for ext in all_fext:
-            if ext:
-                os.mkdir(os.path.join(org_dir, ext))
-        for f in all_files:
-            _, ext = os.path.splitext(f)
-            old_path = os.path.join(org_dir, f)
-            new_path = os.path.join(org_dir, ext, f)
-            os.rename(old_path, new_path)
-        print(green + f"\n\tOrganised Files in {org_dir}" + reset)
-        speak(f"Organised Files!")
-        sleep()
-    except Exception as e:
-        print(red + '\n\tUnable to Organise Fles!' + reset)
-        speak(f"Unable to Organise Files!")
-
 # Changes User's Password.
 def changePassword():
         pword = getpass(green + '\n\tEnter New Password : '+ reset)
@@ -217,27 +138,6 @@ def changePassword():
         else:
             print(red + "\n\tOkay, Nevermind!" + reset)
             speak("Okay, Nevermind!")
-
-# Grabs Photo Using Webcam.
-def grabPhoto():
-    try:
-        cap = cv2.VideoCapture(0)
-        if cap.isOpened():
-            ret, frame = cap.read()
-        else:
-            ret = False
-        img1 = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        speak('Image Captured!')
-        print(green + '\n\tDone!' + reset)
-        plt.imshow(img1)
-        plt.title('Image Camera-1')
-        plt.xticks([])
-        plt.yticks([])
-        plt.show()
-        cap.release()
-    except Exception as e:
-        print(red + '\n\tUnable to Grab Image!' + reset)
-        speak('Unable to Grab Image!')
 
 # User Details.
 name = 'Sanglap'.lower() # User's Name
@@ -270,12 +170,6 @@ if __name__ == "__main__":
                 print(red + '\n\tUnable to Get Results!' + reset)
                 speak("Couldn't Get Results!")
 
-        # Sleep Mode.
-        elif 'sleep' == query or 'bye' == query or f'bye {bot}' in query:
-            speak('Going to Sleep, Bye!')
-            print(red + '\n\t<!!! SLEEPING !!!>' + reset)
-            sleep()
-
         # Opens Any Website.
         elif '.' in query:
             query = query.replace('open ', '')
@@ -283,13 +177,6 @@ if __name__ == "__main__":
             speak(f"Opening {query}!")
             webbrowser.open('http://'+ query)
             sleep()
-
-        # Checks Internet Speed.
-        elif 'internet speed' in query or 'speed test' in query:
-            print(yellow + '\n\tChecking Internet Speed!\n' + reset)
-            speak('Please Wait! This Will Take a While')
-            speedTest()
-            print('Done!')
 
         # Searches With Google.
         elif "search" in query or 'google' in query:
@@ -311,26 +198,6 @@ if __name__ == "__main__":
             print(yellow + '\n\tCheckout YouTube Results!' + reset)
             speak("Checkout Youtube Results!")
             sleep()
-
-        # Translates English to Any Language.
-        elif 'translate' in query:
-            query = query.replace('translate ', '')
-            try:
-                sentence = query.title()
-                speak('In Which Language Should I Translate It?')
-                destL = command().lower()
-                destL = destL.replace('translate to ', '')
-                translated_sent = Translator().translate(sentence, src = 'en' , dest = destL)
-                translated = translated_sent.text
-                try:
-                    print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
-                    speak(f'\n\t{sentence}, in {destL}. {translated}')
-                except Exception:
-                    print(yellow + f'\n\t{sentence} in {destL} "{translated.upper()}"' + reset)
-                time.sleep(2)
-            except:
-                print(red + '\n\tTranslation Failed!' + reset)
-                speak("Translation Failed!")
 
         # Copies User's Command.
         elif 'say ' in query or 'speak' in query:
@@ -361,16 +228,9 @@ if __name__ == "__main__":
         elif 'good morning'in query or 'good afternoon' in query or'good evening'in query:
             greet_user()
 
-        # Grabs Photo Using WebCam.
-        elif 'grab image' in query or ' grab photo' in query:
-            grabPhoto()
-
         # Plays Music.
         elif 'play music' in query or 'play song' in query or 'change music' in query:
             playMusic()
-
-        elif 'record' in query:
-            soundRecord()
 
         # Plays Any Music Online.
         elif 'play ' in query:
@@ -380,22 +240,6 @@ if __name__ == "__main__":
             speak(f'Playing {query} Online!')
             webbrowser.open(musicSearch)
             sleep()
-
-        # Grabs ScreenShot.
-        elif 'screenshot' in query or 'screen shot' in query:
-            speak("Grabbing Screenshot!")
-            img = ImageGrab.grab()
-            print(yellow + '\n\tDone! Should I Show It?' + reset)
-            speak("Done, Should I Show It? ")
-            reply = command().lower()
-            if "yes" in reply or 'ok' in reply or 'yup' in reply or 'do' in reply:
-                print(yellow + '\n\tShowing Screenshot!.' + reset)
-                speak('Ok! Showing Screenshot!')
-                img.show()
-                sleep()
-            else:
-                print(red + "\n\tOkay! Nevermind." + reset)
-                speak("Okay! Nevermind")
 
         # Sends E-mail With G-Mail.
         elif 'send email' in query or 'send an email' in query:
@@ -452,10 +296,6 @@ if __name__ == "__main__":
                 else:
                     print(yellow + "\n\tOkay! Don't Worry" + reset)
                     speak("Okay, Don't Worry")
-
-        # Organises Files in a Specific Directory.
-        elif "organise file" in query or  "manage file" in query:
-            organiseFiles()
    
         # Opens Notepad.
         elif 'open notepad' in query:
@@ -656,7 +496,6 @@ if __name__ == "__main__":
         elif '©empty_^_^_queryª' in query:
             print(red + f"  Did Not Get It...\n\n{reset}~\n")
             speak('Did Not Get it!')
-            sleep()
 
         # If Query Is None Of The Above.
         else:
